@@ -1,0 +1,92 @@
+{
+  "projects": [
+    {
+      "id": "winforge",
+      "name": "WinForge",
+      "context": "personal",
+      "desc": {
+        "en": "Windows app and dev-toolchain installer built on winget: a curated, verified catalog of 744 apps, 31 profiles and a PC health check.",
+        "es": "Instalador de apps y toolchains de desarrollo para Windows sobre winget: catálogo verificado de 744 apps, 31 perfiles y chequeo de salud del PC."
+      },
+      "tags": ["Go", "Wails", "React", "TypeScript", "PowerShell", "winget", "CI/CD"],
+      "github": "https://github.com/Sebas1705/WinForge",
+      "demo": "https://github.com/Sebas1705/WinForge/releases/latest",
+      "long_desc": {
+        "en": "Native Windows desktop app (Wails: Go backend + React/TypeScript UI) that scans the PC, shows which apps of a curated catalog are installed and applies profiles — from 'Essentials' to 'Rust', 'Android' or 'Containers' — installing only what is missing. Reliability first: every one of the 744 catalog apps is pinned to a winget package and an expected publisher, and a verifier checks them against microsoft/winget-pkgs (publisher match against hijacked or typosquatted ids, HTTPS-only installers) and writes a lock file so every change is a reviewable diff. Profiles are data-only and extend each other; post-install steps live only in vetted, idempotent recipes. Detection combines winget's inventory, the Uninstall registry and PATH. Also: an updates view, export of any plan as a standalone PowerShell script, a read-only PC health module (firmware, drivers, storage, security, Windows Update) with vendor links, a store-style UI with app icons, simple/advanced modes, Spanish/English, a headless CLI and a SHA-256-verified in-app updater. CI with an installer smoke test and automated releases.",
+        "es": "App de escritorio nativa para Windows (Wails: backend en Go + UI en React/TypeScript) que escanea el PC, muestra qué apps de un catálogo curado están instaladas y aplica perfiles — de 'Esenciales' a 'Rust', 'Android' o 'Contenedores' — instalando solo lo que falta. La fiabilidad es lo primero: cada una de las 744 apps está fijada a un paquete de winget y a un publisher esperado, y un verificador las comprueba contra microsoft/winget-pkgs (coincidencia de publisher contra ids secuestrados o typosquatting, instaladores solo HTTPS) y genera un lock file para que cada cambio sea un diff revisable. Los perfiles son solo datos y se extienden entre sí; los pasos post-instalación viven solo en recetas revisadas e idempotentes. La detección combina el inventario de winget, el registro de desinstalación y el PATH. Además: vista de actualizaciones, exportación de cualquier plan como script de PowerShell autónomo, módulo de salud del PC de solo lectura (firmware, drivers, almacenamiento, seguridad, Windows Update) con enlaces al fabricante, UI estilo tienda con iconos, modos simple/avanzado, español/inglés, CLI headless y auto-actualizador verificado con SHA-256. CI con smoke test del instalador y releases automatizadas."
+      }
+    },
+    {
+      "id": "ad-skipper",
+      "name": "AdSkipper",
+      "context": "personal",
+      "desc": {
+        "en": "Chromium extension (Manifest V3) that clicks the Skip button on video ads as soon as the player offers it.",
+        "es": "Extensión para Chromium (Manifest V3) que pulsa el botón Saltar de los anuncios de vídeo en cuanto el reproductor lo ofrece."
+      },
+      "tags": ["TypeScript", "Svelte", "WXT", "Browser Extension", "Vitest"],
+      "github": "https://github.com/Sebas1705/ad-skipper",
+      "demo": null,
+      "long_desc": {
+        "en": "Small, privacy-respecting browser extension generated from the Templetry browser-extension/wxt-svelte template: WXT + Svelte 5 + TypeScript. A content script watches the page and presses the player's own Skip button with a full pointer-event sequence, once per button; it never hides, blocks or fast-forwards ads. Only the 'storage' permission (on/off switch and a skipped-ads counter shown in the popup), selectors isolated in one module so they are easy to update when the player changes, and unit tests with Vitest.",
+        "es": "Extensión de navegador pequeña y respetuosa con la privacidad, generada con la plantilla browser-extension/wxt-svelte de Templetry: WXT + Svelte 5 + TypeScript. Un content script vigila la página y pulsa el propio botón Saltar del reproductor con una secuencia completa de eventos de puntero, una vez por botón; nunca oculta, bloquea ni adelanta anuncios. Solo pide el permiso 'storage' (interruptor y contador de anuncios saltados en el popup), los selectores están aislados en un módulo para actualizarlos fácilmente cuando cambia el reproductor, y tiene tests unitarios con Vitest."
+      }
+    },
+    {
+      "id": "aimobidemo",
+      "name": "AIMobiDemo",
+      "context": "personal",
+      "desc": {
+        "en": "On-device and cloud generative AI on Android: five engines tried in order with automatic fallback to cover any hardware.",
+        "es": "IA generativa on-device y en la nube en Android: cinco motores probados en orden con fallback automático para cubrir cualquier hardware."
+      },
+      "tags": ["Kotlin", "Jetpack Compose", "Gemini Nano", "MediaPipe", "LiteRT", "Firebase", "LLM"],
+      "github": null,
+      "demo": null,
+      "long_desc": {
+        "en": "Kotlin + Jetpack Compose demo that compares Android's generative AI engines and falls back automatically when the device or configuration cannot run one: ML Kit GenAI Prompt API (Gemini Nano via AICore, flagships only), MediaPipe LLM Inference (Gemma running inside the app, mid-range devices), the Gemini REST API, LiteRT-LM with Gemma 4 E2B (on-device, image input, resumable chat history) and Firebase AI Logic. Each engine is a reusable Gradle module, models are released from memory when switching tiers, the cloud tier uses web search to ground answers and tracks the daily quota, and the APK ships through Firebase App Distribution and GitHub Releases with secrets managed in Doppler.",
+        "es": "Demo en Kotlin + Jetpack Compose que compara los motores de IA generativa de Android y cae automáticamente al siguiente cuando el dispositivo o la configuración no soporta uno: ML Kit GenAI Prompt API (Gemini Nano vía AICore, solo flagships), MediaPipe LLM Inference (Gemma dentro de la propia app, gama media), la API REST de Gemini, LiteRT-LM con Gemma 4 E2B (on-device, entrada de imágenes, historial de chat recuperable) y Firebase AI Logic. Cada motor es un módulo Gradle reutilizable, los modelos se liberan de memoria al cambiar de tier, el tier en la nube usa búsqueda web para fundamentar respuestas y controla la cuota diaria, y el APK se distribuye por Firebase App Distribution y GitHub Releases con secretos gestionados en Doppler."
+      }
+    },
+    {
+      "id": "youknow",
+      "name": "YouKnow",
+      "context": "academic",
+      "desc": {
+        "en": "Android trivia and quiz app: Jetpack Compose, Firebase and multi-module Clean Architecture, shipped through an automated release pipeline.",
+        "es": "App Android de trivia y quiz: Jetpack Compose, Firebase y Clean Architecture multimódulo, publicada con un pipeline de releases automatizado."
+      },
+      "tags": ["Kotlin", "Jetpack Compose", "Firebase", "Hilt", "Clean Architecture", "MVI", "CI/CD"],
+      "github": "https://github.com/Sebas1705/YouKnow",
+      "demo": "https://github.com/Sebas1705/YouKnow/releases/latest",
+      "long_desc": {
+        "en": "Started as my bachelor's final project and kept alive as a product. Android trivia app with four game modes over OpenTriviaDB questions, Firebase Auth, Firestore, Realtime Database and Storage, audio feedback and an onboarding guide. Rebuilt in 2026 on the Templetry android/modular-features template: multi-module Clean Architecture (core/data/domain/feature), Navigation 3, Hilt, Gradle convention plugins and Development/Staging/Production flavors. Secrets live in Doppler; tagging a version builds a signed APK and publishes it to GitHub Releases and Firebase App Distribution. Firebase security rules are tested against the emulator on every PR and deployed from CI. Games redesigned with a shared component kit.",
+        "es": "Nació como mi proyecto de fin de grado y sigue vivo como producto. App Android de trivia con cuatro modos de juego sobre preguntas de OpenTriviaDB, Firebase Auth, Firestore, Realtime Database y Storage, feedback sonoro y guía de bienvenida. Reconstruida en 2026 sobre la plantilla android/modular-features de Templetry: Clean Architecture multimódulo (core/data/domain/feature), Navigation 3, Hilt, convention plugins de Gradle y flavors Development/Staging/Production. Los secretos viven en Doppler; etiquetar una versión genera un APK firmado y lo publica en GitHub Releases y Firebase App Distribution. Las reglas de seguridad de Firebase se prueban contra el emulador en cada PR y se despliegan desde CI. Juegos rediseñados con un kit de componentes compartido."
+      }
+    },
+    {
+      "id": "templetry",
+      "name": "Templetry",
+      "context": "personal",
+      "desc": {
+        "en": "Project scaffolding for every platform: pure Go engine + CLI, native desktop app (Wails) and a CI-verified template catalog.",
+        "es": "Scaffolding de proyectos multiplataforma: engine en Go + CLI, app de escritorio nativa (Wails) y catálogo de plantillas verificado por CI."
+      },
+      "tags": ["Go", "Wails", "React", "TypeScript", "Kotlin Multiplatform", "MCP", "CI/CD"],
+      "github": "https://github.com/Templetry",
+      "demo": null,
+      "long_desc": {
+        "en": "Open-source project scaffolding ecosystem. A pure Go engine + CLI renders ready-to-work repositories from compilable templates: all framework knowledge lives in each template's template.yml manifest (identity renaming, comment directives, structured JSON patches), rendering is deterministic — same inputs, byte-identical output — and 'templetry verify' compiles the result in Docker. Around the engine: a CI-verified catalog of parent templates for Android, Kotlin Multiplatform, iOS, web, browser extensions, Go, Rust, Node, Python, JVM and .NET, with combinable features and shared 'pieces'; a meta-template that scaffolds new templates; an MCP server so AI assistants can create projects; a native desktop app built with Wails (browse the catalog, fill the dynamic form, preview the plan, three-way-merge template updates, auto-update); and a wiki with ADRs and normative specs. Distributed as multi-platform binaries with SHA256 checksums, a Homebrew tap and a Scoop bucket, with a shared Renovate preset across every repository. Used to build my own apps (YouKnow, AdSkipper).",
+        "es": "Ecosistema open-source de scaffolding de proyectos. Un engine en Go puro + CLI genera repositorios listos para trabajar desde plantillas compilables: todo el conocimiento del framework vive en el manifiesto template.yml de cada plantilla (renombrado por identidad, directivas en comentarios, parches JSON estructurados), el renderizado es determinista — mismas entradas, salida idéntica byte a byte — y 'templetry verify' compila el resultado en Docker. Alrededor del engine: un catálogo verificado por CI de plantillas parent para Android, Kotlin Multiplatform, iOS, web, extensiones de navegador, Go, Rust, Node, Python, JVM y .NET, con features combinables y 'pieces' compartidas; una meta-plantilla que genera nuevas plantillas; un servidor MCP para que los asistentes de IA creen proyectos; una app de escritorio nativa con Wails (explora el catálogo, rellena el formulario dinámico, previsualiza el plan, actualiza plantillas con three-way merge, auto-update); y una wiki con ADRs y especificaciones normativas. Distribuido como binarios multiplataforma con checksums SHA256, un tap de Homebrew y un bucket de Scoop, con un preset de Renovate compartido en todos los repos. Lo uso para construir mis propias apps (YouKnow, AdSkipper)."
+      }
+    }
+  ],
+  "skills": [
+    { "id": "svelte", "name": "Svelte", "category": "frameworks", "level": 2, "icon_url": null },
+    { "id": "wxt", "name": "WXT", "category": "frameworks", "level": 1, "icon_url": null },
+    { "id": "doppler", "name": "Doppler", "category": "tools", "level": 2, "icon_url": null },
+    { "id": "winget", "name": "winget", "category": "tools", "level": 2, "icon_url": null },
+    { "id": "mediapipe", "name": "MediaPipe", "category": "ai", "level": 2, "icon_url": null },
+    { "id": "litert", "name": "LiteRT", "category": "ai", "level": 1, "icon_url": null }
+  ]
+}
