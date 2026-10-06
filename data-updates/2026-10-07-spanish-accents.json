@@ -1,0 +1,396 @@
+{
+  "personal": {
+    "name": "Sebastián Entrerrios García",
+    "email": "sebssgarcia502580@gmail.com",
+    "cv_url": "/data/cv.pdf",
+    "github": "https://github.com/Sebas1705",
+    "linkedin": "https://www.linkedin.com/in/sebastian-ramiro-entrerrios-garcia-b1a713217/",
+    "codewars": "https://www.codewars.com/users/Sebas1705",
+    "greeting": {
+      "en": "Hi, I'm",
+      "es": "Hola, soy"
+    },
+    "role": {
+      "en": "Full Stack & Mobile Developer",
+      "es": "Desarrollador Full Stack & Móvil"
+    },
+    "tagline": {
+      "en": "Full stack and mobile engineer: design fast frontends, solid APIs and production-ready mobile experiences.",
+      "es": "Ingeniero full stack y móvil: diseño frontends rápidos, APIs sólidas y experiencias móviles listas para producción."
+    },
+    "bio": {
+      "en": "Based in Madrid, Spain. I build digital products with care — from native mobile apps to full-stack web systems.",
+      "es": "Con base en Madrid, España. Construyo productos digitales con cuidado — desde apps móviles nativas hasta sistemas web full-stack."
+    },
+    "location": {
+      "en": "Madrid, Spain",
+      "es": "Madrid, España"
+    }
+  },
+  "jobs": [
+    {
+      "id": "senior-solusoft",
+      "company": "Solusoft",
+      "companyUrl": "https://www.solusoft.es/",
+      "startDate": "2026-01",
+      "endDate": null,
+      "role": {
+        "en": "Senior Full Stack & Mobile Developer",
+        "es": "Desarrollador Full Stack & Móvil Senior"
+      },
+      "type": {
+        "en": "Hybrid",
+        "es": "Híbrido"
+      },
+      "period": {
+        "en": "January 2026 - Present",
+        "es": "Enero 2026 - Presente"
+      },
+      "desc": {
+        "en": "Leading development and architectural decisions.",
+        "es": "Liderazgo técnico y de decisiones arquitectónicas."
+      },
+      "projects": [
+        "AGEDI",
+        "Sisley",
+        "Iberext",
+        "EPDM",
+        "ApiMovil",
+        "Wemob",
+        "Transportes Chinchón"
+      ],
+      "achievements": {
+        "en": [
+          "Promoted to Senior within the same team",
+          "Led architectural refactors across multiple projects",
+          "Drove adoption of clean multimodular architecture",
+          "Continued full ownership of EPDM and Iberext lifecycle"
+        ],
+        "es": [
+          "Promoción a Senior dentro del mismo equipo",
+          "Lideré refactorizaciones arquitectónicas en múltiples proyectos",
+          "Impulsé la arquitectura limpia y multimodular",
+          "Ownership completo de EPDM e Iberext"
+        ]
+      },
+      "long_desc": {
+        "en": "Technical lead of the mobile and full-stack side of Solusoft's client products. I own architectural decisions across AGEDI, Sisley, Iberext and EPDM — driving refactors towards clean, multimodular architecture — and lead the Transportes Chinchón programme: native Android (Kotlin/Jetpack Compose) and native iOS (Swift/SwiftUI) apps backed by ApiMovil and Wemob, internal .NET REST APIs I design and maintain. Day to day: architecture reviews, delivery planning in agile cycles and hands-on development across the stack.",
+        "es": "Referente técnico del lado móvil y full-stack de los productos de cliente de Solusoft. Llevo las decisiones de arquitectura en AGEDI, Sisley, Iberext y EPDM — impulsando refactorizaciones hacia arquitectura limpia multimodular — y lidero el programa de Transportes Chinchón: apps nativas Android (Kotlin/Jetpack Compose) e iOS (Swift/SwiftUI) sobre ApiMovil y Wemob, APIs REST .NET internas que diseño y mantengo. En el día a día: revisiones de arquitectura, planificación de entregas en ciclos ágiles y desarrollo directo en toda la pila."
+      }
+    },
+    {
+      "id": "junior-solusoft",
+      "company": "Solusoft",
+      "companyUrl": "https://www.solusoft.es/",
+      "startDate": "2025-03",
+      "endDate": "2025-12",
+      "role": {
+        "en": "Junior Full Stack & Mobile Developer",
+        "es": "Desarrollador Full Stack & Móvil Junior"
+      },
+      "type": {
+        "en": "Hybrid",
+        "es": "Híbrido"
+      },
+      "period": {
+        "en": "March 2025 - December 2025",
+        "es": "Marzo 2025 - Diciembre 2025"
+      },
+      "desc": {
+        "en": "Development and maintenance following agile methodologies.",
+        "es": "Desarrollo y mantenimiento siguiendo metodologías ágiles."
+      },
+      "projects": [
+        "AGEDI",
+        "Sisley",
+        "Iberext",
+        "EPDM"
+      ],
+      "achievements": {
+        "en": [
+          "Full development of EPDM mobile app published on Play Store",
+          "Built Iberext mobile app from scratch"
+        ],
+        "es": [
+          "Desarrollo completo de la app EPDM publicada en Play Store",
+          "Desarrollo desde cero de Iberext"
+        ]
+      },
+      "long_desc": {
+        "en": "Development and maintenance across Solusoft's product portfolio following agile methodologies. Built the EPDM Music Portal Android app from scratch (Kotlin, Jetpack Compose, Firebase) and published it on Google Play; built the Iberext fire-prevention app from scratch, migrating a legacy Windows tablet application to native Android; full-stack maintenance of AGEDI and Sisley (C#/.NET, SQL Server, Azure).",
+        "es": "Desarrollo y mantenimiento del porfolio de productos de Solusoft siguiendo metodologías ágiles. Construí desde cero la app Android EPDM Portal Musical (Kotlin, Jetpack Compose, Firebase) y la publiqué en Google Play; desarrollé desde cero la app de prevención de incendios Iberext, migrando una aplicación legacy de tablet Windows a Android nativo; mantenimiento full-stack de AGEDI y Sisley (C#/.NET, SQL Server, Azure)."
+      }
+    },
+    {
+      "id": "intern-solusoft",
+      "company": "Solusoft",
+      "companyUrl": "https://www.solusoft.es/",
+      "startDate": "2024-10",
+      "endDate": "2025-02",
+      "role": {
+        "en": "Full Stack & Mobile Developer Intern",
+        "es": "Desarrollador Full Stack & Móvil en prácticas"
+      },
+      "type": {
+        "en": "Hybrid",
+        "es": "Híbrido"
+      },
+      "period": {
+        "en": "October 2024 - February 2025",
+        "es": "Octubre 2024 - Febrero 2025"
+      },
+      "desc": {
+        "en": "Supervised learning and development.",
+        "es": "Aprendizaje y desarrollo bajo supervisión."
+      },
+      "projects": [
+        "AGEDI",
+        "Sisley",
+        "Iberext"
+      ],
+      "achievements": {
+        "en": [
+          "Implemented new features across AGEDI projects",
+          "Maintenance of Sisley frontend and backend",
+          "Built Iberext mobile app from scratch"
+        ],
+        "es": [
+          "Implementé nuevas funcionalidades en AGEDI",
+          "Mantenimiento de Sisley",
+          "Desarrollo desde cero de Iberext"
+        ]
+      },
+      "long_desc": {
+        "en": "Supervised learning and development inside the AGEDI and Sisley teams: implemented features across AGEDI projects, maintained the Sisley frontend and backend (C#/.NET, SQL Server) and laid the ground work of the Iberext mobile app. First contact with enterprise agile delivery.",
+        "es": "Aprendizaje y desarrollo supervisado dentro de los equipos de AGEDI y Sisley: implementé funcionalidades en los proyectos de AGEDI, mantuve el frontend y backend de Sisley (C#/.NET, SQL Server) y puse las bases de la app móvil de Iberext. Primer contacto con la entrega ágil en entorno empresarial."
+      }
+    }
+  ],
+  "projects": [
+    {
+      "id": "agedi",
+      "name": "AGEDI System",
+      "context": "work",
+      "desc": {
+        "en": "Enterprise management platform for AGEDI.",
+        "es": "Plataforma de gestión empresarial para AGEDI."
+      },
+      "tags": [
+        "C#",
+        ".NET",
+        "SQL Server",
+        "Azure",
+        "Power BI",
+        "JavaScript"
+      ],
+      "github": null,
+      "demo": null,
+      "long_desc": {
+        "en": "Full-stack enterprise management platform built with C# / .NET and SQL Server. Includes Azure Data Studio integration, Power BI dashboards for reporting, and a web frontend. Maintained and improved with new features following agile methodologies.",
+        "es": "Plataforma empresarial full-stack construida con C# / .NET y SQL Server. Incluye integración con Azure Data Studio, dashboards de Power BI para informes y un frontend web. Mantenida y mejorada con nuevas funcionalidades siguiendo metodologías ágiles."
+      }
+    },
+    {
+      "id": "axiomnode",
+      "name": "AxiomNode",
+      "context": "academic",
+      "desc": {
+        "en": "Master's TFM: production-grade microservices platform.",
+        "es": "TFM del Máster: plataforma de microservicios."
+      },
+      "tags": [
+        "TypeScript",
+        "Python",
+        "Kotlin",
+        "Kubernetes",
+        "Docker",
+        "React",
+        "LLM"
+      ],
+      "github": "https://github.com/AxiomNode",
+      "demo": null,
+      "long_desc": {
+        "en": "16-repository platform built as the AI Development Master's final project. Architecture: API Gateway → BFF per channel (mobile/backoffice) → domain microservices (users, quiz, wordpass) → AI engine (Python/llama with RAG, prompt versioning and LLMOps metrics). Mobile app in Kotlin/Jetpack Compose. Backoffice in React/TypeScript. Infrastructure: Docker + Kubernetes, GitHub Actions CI/CD, immutable tags, centralised secrets. Quality: 90% Vitest/pytest coverage across 8 repos, Codecov, Playwright E2E smoke tests, CodeQL SAST, Trivy SCA, Prometheus + Grafana observability with LLM-specific dashboards. Security: STRIDE threat model, prompt-injection policies, secrets rotation runbook.",
+        "es": "Plataforma de 16 repositorios construida como proyecto final del Máster en Desarrollo con IA. Arquitectura: API Gateway → BFF por canal (móvil/backoffice) → microservicios de dominio (usuarios, quiz, wordpass) → motor de IA (Python/llama con RAG, versionado de prompts y métricas LLMOps). App móvil en Kotlin/Jetpack Compose. Backoffice en React/TypeScript. Infraestructura: Docker + Kubernetes, CI/CD con GitHub Actions, tags inmutables, secretos centralizados. Calidad: 90% cobertura Vitest/pytest en 8 repos, Codecov, tests E2E Playwright, CodeQL SAST, Trivy SCA, observabilidad Prometheus + Grafana con dashboards LLM. Seguridad: modelo de amenazas STRIDE, políticas anti-prompt-injection, runbook de rotación de secretos."
+      }
+    },
+    {
+      "id": "sisley",
+      "name": "Sisley System",
+      "context": "work",
+      "desc": {
+        "en": "Web application for Sisley content management.",
+        "es": "Aplicación web para gestión de contenido de Sisley."
+      },
+      "tags": [
+        "C#",
+        ".NET",
+        "SQL Server",
+        "Azure",
+        "MVC"
+      ],
+      "github": null,
+      "demo": null,
+      "long_desc": {
+        "en": "Content management system built with C# / .NET following the MVC pattern, backed by SQL Server and deployed on Azure. Responsible for feature development and continuous maintenance of both frontend and backend layers.",
+        "es": "Sistema de gestión de contenido construido con C# / .NET siguiendo el patrón MVC, con SQL Server y desplegado en Azure. Responsable del desarrollo de funcionalidades y mantenimiento continuo de las capas frontend y backend."
+      }
+    },
+    {
+      "id": "iberext",
+      "name": "Iberext System",
+      "context": "work",
+      "desc": {
+        "en": "Android app for fire prevention systems.",
+        "es": "App Android para sistemas de prevención de incendios."
+      },
+      "tags": [
+        "Kotlin",
+        "Jetpack Compose",
+        "C#",
+        ".NET",
+        "Firebase",
+        "Clean Architecture"
+      ],
+      "github": null,
+      "demo": null,
+      "long_desc": {
+        "en": "Built from scratch in Kotlin with Jetpack Compose, migrating and extending an existing Windows tablet application. Connects to a C# / .NET + SQL Server backend. Implements multimodular clean architecture with Firebase integration.",
+        "es": "Desarrollada desde cero en Kotlin con Jetpack Compose, migrando y ampliando una aplicación Windows existente. Se conecta a un backend C# / .NET + SQL Server. Implementa arquitectura limpia multimodular con integración de Firebase."
+      }
+    },
+    {
+      "id": "codewars",
+      "name": "Codewars Katas",
+      "context": "personal",
+      "desc": {
+        "en": "Codewars katas in multiple languages.",
+        "es": "Katas de Codewars en múltiples lenguajes."
+      },
+      "tags": [
+        "Kotlin",
+        "C#",
+        "Java",
+        "JavaScript",
+        "Python",
+        "Bash",
+        "TypeScript"
+      ],
+      "github": "https://github.com/Sebas1705/Codewars",
+      "demo": null,
+      "long_desc": {
+        "en": "Ongoing personal repo focused on sharpening algorithmic thinking. Covers sorting, dynamic programming, graph traversal, string manipulation and more across Kotlin, C#, Java, JavaScript, Python, Bash and TypeScript.",
+        "es": "Repositorio personal en curso centrado en agudizar el pensamiento algorítmico. Cubre ordenación, programación dinámica, recorrido de grafos, manipulación de cadenas y más en Kotlin, C#, Java, JavaScript, Python, Bash y TypeScript."
+      }
+    }
+  ],
+  "education": [
+    {
+      "id": "big-school",
+      "school": "BigSchool & Isabel I University",
+      "icon": "graduation",
+      "degree": {
+        "en": "Master's in AI Development",
+        "es": "Máster de Desarrollo con IA"
+      },
+      "period": {
+        "en": "October 2025 - June 2026",
+        "es": "Octubre 2025 - Junio 2026"
+      },
+      "detail": {
+        "en": "11-module postgraduate: Software Engineering, Architecture, AI, DevSecOps.",
+        "es": "Posgrado de 11 módulos: Ingeniería de Software, Arquitectura, IA, DevSecOps."
+      },
+      "long_desc": {
+        "en": "Intensive postgraduate programme (BigSchool & Universidad Isabel I) covering the modern delivery cycle across 11 modules: software engineering, architecture and design patterns, AI-assisted development, LLM integration, DevSecOps, cloud and observability. Final project (TFM): AxiomNode — a 16-repository microservices platform with an AI engine (Python/LLM with RAG), mobile client and full DevSecOps pipeline.",
+        "es": "Posgrado intensivo (BigSchool & Universidad Isabel I) que cubre el ciclo de entrega moderno en 11 módulos: ingeniería de software, arquitectura y patrones de diseño, desarrollo asistido por IA, integración de LLMs, DevSecOps, cloud y observabilidad. Proyecto final (TFM): AxiomNode — una plataforma de microservicios de 16 repositorios con motor de IA (Python/LLM con RAG), cliente móvil y pipeline DevSecOps completo."
+      }
+    },
+    {
+      "id": "urjc",
+      "school": "Universidad Rey Juan Carlos",
+      "icon": "university",
+      "degree": {
+        "en": "Computer Engineering",
+        "es": "Ingeniería de Computadores"
+      },
+      "period": {
+        "en": "September 2020 - July 2025",
+        "es": "Septiembre 2020 - Julio 2025"
+      },
+      "detail": {
+        "en": "Information Technology degree. Móstoles, Madrid. TFG: YouKnow.",
+        "es": "Grado en Informática. Móstoles, Madrid. TFG: YouKnow."
+      },
+      "long_desc": {
+        "en": "Computer Engineering degree (Information Technology track) at Universidad Rey Juan Carlos, Móstoles. Systems foundations: operating systems, networks, databases, distributed systems, high-performance computing (MPI/OpenMP labs), computer vision and software engineering. Final project (TFG): YouKnow — an Android social trivia app built with Kotlin, Jetpack Compose and Firebase.",
+        "es": "Grado en Ingeniería de Computadores (itinerario de Tecnologías de la Información) en la Universidad Rey Juan Carlos, Móstoles. Fundamentos de sistemas: sistemas operativos, redes, bases de datos, sistemas distribuidos, computación de alto rendimiento (prácticas con MPI/OpenMP), visión por computador e ingeniería de software. Proyecto final (TFG): YouKnow — una app Android de trivial social construida con Kotlin, Jetpack Compose y Firebase."
+      }
+    },
+    {
+      "id": "baccalaureate",
+      "school": "IES Maestro Matías Bravo",
+      "icon": "school",
+      "degree": {
+        "en": "Baccalaureate - Technology",
+        "es": "Bachillerato - Tecnológico"
+      },
+      "period": {
+        "en": "Sept 2018 - June 2020",
+        "es": "Sept 2018 - Junio 2020"
+      },
+      "detail": {
+        "en": "Valdemoro, Madrid, Spain.",
+        "es": "Valdemoro, Madrid, España."
+      },
+      "long_desc": {
+        "en": "Technology-track baccalaureate at IES Maestro Matías Bravo (Valdemoro, Madrid): mathematics, physics and technical drawing foundation that led into engineering.",
+        "es": "Bachillerato tecnológico en el IES Maestro Matías Bravo (Valdemoro, Madrid): base de matemáticas, física y dibujo técnico que encaminó hacia la ingeniería."
+      }
+    }
+  ],
+  "soft-skills": [
+    {
+      "id": "attention-detail",
+      "name": {
+        "en": "Attention to Detail",
+        "es": "Atención al detalle"
+      }
+    },
+    {
+      "id": "communication",
+      "name": {
+        "en": "Communication",
+        "es": "Comunicación"
+      }
+    },
+    {
+      "id": "critical-thinking",
+      "name": {
+        "en": "Critical Thinking",
+        "es": "Pensamiento crítico"
+      }
+    },
+    {
+      "id": "empathy",
+      "name": {
+        "en": "Empathy",
+        "es": "Empatía"
+      }
+    },
+    {
+      "id": "problem-solving",
+      "name": {
+        "en": "Problem Solving",
+        "es": "Resolución de problemas"
+      }
+    },
+    {
+      "id": "time-management",
+      "name": {
+        "en": "Time Management",
+        "es": "Gestión del tiempo"
+      }
+    }
+  ]
+}
