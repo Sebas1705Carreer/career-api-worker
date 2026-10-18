@@ -1,8 +1,10 @@
 import type { Env, EntityKey } from './types'
-import { ARRAY_ENTITIES, SINGULAR_ENTITIES } from './types'
+import { ARRAY_ENTITIES, ENTITY_KEYS, SINGULAR_ENTITIES } from './types'
 import { isAuthenticated, unauthorized } from './auth'
 import { kvGet, kvSet, kvGetById, kvCreate, kvUpdate, kvDelete } from './kv'
 import { OPENAPI_SPEC, swaggerUiHtml } from './openapi'
+import { cachedJson } from './cache'
+import { validateEntity, validateLanguages } from './validate'
 
 type Handler = (req: Request, env: Env, params: Record<string, string>) => Promise<Response>
 
@@ -51,6 +53,23 @@ function badRequest(msg: string): Response {
   return json({ error: msg }, 400)
 }
 
+function invalid(errors: string[]): Response {
+  return json({ error: 'Validation failed', details: errors }, 400)
+}
+
+/** Largest write body accepted. The whole portfolio is around 65 KB, so this is generous. */
+const MAX_BODY_BYTES = 256 * 1024
+
+async function readJson(req: Request): Promise<{ body: unknown } | { error: Response }> {
+  const text = await req.text()
+  if (text.length > MAX_BODY_BYTES) return { error: json({ error: 'Body too large' }, 413) }
+  try {
+    return { body: JSON.parse(text) }
+  } catch {
+    return { error: badRequest('Invalid JSON body') }
+  }
+}
+
 function serverError(e: unknown): Response {
   const msg = e instanceof Error ? e.message : 'Internal error'
   return json({ error: msg }, 500)
@@ -83,12 +102,13 @@ addRoute('GET', '/docs', async (req) => {
 // ── Root ─────────────────────────────────────────────────────────────────────
 
 addRoute('GET', '/', async (_req, _env) => {
-  return json({
+  return cachedJson(_req, {
     name: 'Career API',
     version: '3.0.0',
     author: 'Sebastián Entrerrios García',
     i18n: 'All localizable fields use { [langCode]: value } — see /languages for supported codes.',
     endpoints: [
+      '/all',
       '/languages',
       '/personal',
       '/jobs',
@@ -103,6 +123,21 @@ addRoute('GET', '/', async (_req, _env) => {
   })
 })
 
+// ── All entities in one request ───────────────────────────────────────────────
+//
+// The portfolio and Folio need every entity to draw their first screen: one request instead of
+// eight. The individual endpoints keep working.
+
+addRoute('GET', '/all', async (req, env) => {
+  const entries = await Promise.all(
+    ENTITY_KEYS.map(async (key) => {
+      const value = await kvGet(env, key)
+      return [key, value ?? (SINGULAR_ENTITIES.includes(key) ? null : [])] as const
+    }),
+  )
+  return cachedJson(req, Object.fromEntries(entries))
+})
+
 // ── Languages (singular) ──────────────────────────────────────────────────────
 //
 // Stored as: { supported: [{ code, label, label_native }], default: "en" }
@@ -110,48 +145,58 @@ addRoute('GET', '/', async (_req, _env) => {
 // a language switcher. Add new codes here, then PATCH each entity to include
 // the translations for the new code.
 
-addRoute('GET', '/languages', async (_req, env) => {
+addRoute('GET', '/languages', async (req, env) => {
   const data = await kvGet(env, 'languages')
   if (!data) return notFound('Languages not seeded yet')
-  return json(data)
+  return cachedJson(req, data)
 })
 
 addRoute('PUT', '/languages', async (req, env) => {
-  const body = await req.json().catch(() => null)
-  if (!body || typeof body !== 'object') return badRequest('Invalid JSON body')
-  await kvSet(env, 'languages', body)
-  return json(body)
+  const read = await readJson(req)
+  if ('error' in read) return read.error
+  const errors = validateEntity('languages', read.body, 'replace')
+  if (errors.length) return invalid(errors)
+  await kvSet(env, 'languages', read.body)
+  return json(read.body)
 }, true)
 
 addRoute('PATCH', '/languages', async (req, env) => {
-  const patch = await req.json().catch(() => null)
-  if (!patch || typeof patch !== 'object') return badRequest('Invalid JSON body')
+  const read = await readJson(req)
+  if ('error' in read) return read.error
+  if (typeof read.body !== 'object' || read.body === null || Array.isArray(read.body)) return invalid(['body must be a JSON object'])
   const current = (await kvGet(env, 'languages')) ?? {}
-  const updated = { ...(current as object), ...(patch as object) }
+  const updated = { ...(current as object), ...(read.body as object) }
+  // The merged result is what gets stored, so that is what has to be valid
+  const errors = validateLanguages(updated as Record<string, unknown>)
+  if (errors.length) return invalid(errors)
   await kvSet(env, 'languages', updated)
   return json(updated)
 }, true)
 
 // ── Singular entity: /personal ────────────────────────────────────────────────
 
-addRoute('GET', '/personal', async (_req, env) => {
+addRoute('GET', '/personal', async (req, env) => {
   const data = await kvGet(env, 'personal')
   if (!data) return notFound('Personal data not seeded yet')
-  return json(data)
+  return cachedJson(req, data)
 })
 
 addRoute('PUT', '/personal', async (req, env) => {
-  const body = await req.json().catch(() => null)
-  if (!body || typeof body !== 'object') return badRequest('Invalid JSON body')
-  await kvSet(env, 'personal', body)
-  return json(body)
+  const read = await readJson(req)
+  if ('error' in read) return read.error
+  const errors = validateEntity('personal', read.body, 'replace')
+  if (errors.length) return invalid(errors)
+  await kvSet(env, 'personal', read.body)
+  return json(read.body)
 }, true)
 
 addRoute('PATCH', '/personal', async (req, env) => {
-  const patch = await req.json().catch(() => null)
-  if (!patch || typeof patch !== 'object') return badRequest('Invalid JSON body')
+  const read = await readJson(req)
+  if ('error' in read) return read.error
+  const errors = validateEntity('personal', read.body, 'patch')
+  if (errors.length) return invalid(errors)
   const current = (await kvGet(env, 'personal')) ?? {}
-  const updated = { ...(current as object), ...(patch as object) }
+  const updated = { ...(current as object), ...(read.body as object) }
   await kvSet(env, 'personal', updated)
   return json(updated)
 }, true)
@@ -162,25 +207,27 @@ for (const entity of ARRAY_ENTITIES) {
   const e = entity // capture
 
   // GET all
-  addRoute('GET', `/${e}`, async (_req, env) => {
+  addRoute('GET', `/${e}`, async (req, env) => {
     const list = await kvGet(env, e)
-    if (!list) return json([])
-    return json(list)
+    return cachedJson(req, list ?? [])
   })
 
   // GET by id
-  addRoute('GET', `/${e}/:id`, async (_req, env, params) => {
+  addRoute('GET', `/${e}/:id`, async (req, env, params) => {
     const item = await kvGetById(env, e, params.id)
     if (!item) return notFound(`${e}/${params.id} not found`)
-    return json(item)
+    return cachedJson(req, item)
   })
 
   // POST create
   addRoute('POST', `/${e}`, async (req, env) => {
     try {
-      const body = await req.json() as Record<string, unknown>
-      if (!body.id || typeof body.id !== 'string') return badRequest('Field "id" (string) is required')
-      await kvCreate(env, e, body as { id: string })
+      const read = await readJson(req)
+      if ('error' in read) return read.error
+      const errors = validateEntity(e, read.body, 'create')
+      if (errors.length) return invalid(errors)
+      const body = read.body as { id: string }
+      await kvCreate(env, e, body)
       return json(body, 201)
     } catch (err) {
       return err instanceof Error && err.message.includes('already exists')
@@ -192,8 +239,12 @@ for (const entity of ARRAY_ENTITIES) {
   // PUT replace
   addRoute('PUT', `/${e}/:id`, async (req, env, params) => {
     try {
-      const body = await req.json() as Record<string, unknown>
-      const updated = await kvUpdate(env, e, params.id, { ...body, id: params.id })
+      const read = await readJson(req)
+      if ('error' in read) return read.error
+      // PUT merges into the stored item, like PATCH, so only what is sent is checked
+      const errors = validateEntity(e, read.body, 'patch')
+      if (errors.length) return invalid(errors)
+      const updated = await kvUpdate(env, e, params.id, { ...(read.body as object), id: params.id })
       return json(updated)
     } catch (err) {
       return err instanceof Error && err.message.includes('not found')
@@ -205,8 +256,11 @@ for (const entity of ARRAY_ENTITIES) {
   // PATCH partial update
   addRoute('PATCH', `/${e}/:id`, async (req, env, params) => {
     try {
-      const patch = await req.json() as Record<string, unknown>
-      const updated = await kvUpdate(env, e, params.id, patch)
+      const read = await readJson(req)
+      if ('error' in read) return read.error
+      const errors = validateEntity(e, read.body, 'patch')
+      if (errors.length) return invalid(errors)
+      const updated = await kvUpdate(env, e, params.id, read.body as Record<string, unknown>)
       return json(updated)
     } catch (err) {
       return err instanceof Error && err.message.includes('not found')

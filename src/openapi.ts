@@ -17,7 +17,14 @@ export const OPENAPI_SPEC = {
       '### i18n\n' +
       'All localizable text fields use a **`LocalizedString`** map:\n' +
       '```json\n{ "en": "Hello", "es": "Hola" }\n```\n' +
-      'Fetch `GET /languages` to discover which language codes are supported.',
+      'Fetch `GET /languages` to discover which language codes are supported.\n\n' +
+      '### Caching\n' +
+      'Every `GET` returns an `ETag` and `Cache-Control: public, max-age=30, stale-while-revalidate=120`. Send the tag back as ' +
+      '`If-None-Match` and an unchanged resource answers `304` with no body. `GET /all` returns every entity in one request.\n\n' +
+      '### Validation\n' +
+      'Writes are checked before they are stored. A rejected write answers `400` with ' +
+      '`{ "error": "Validation failed", "details": ["projects.context: must be one of: work, academic, personal"] }`. ' +
+      'Unknown fields are accepted; the types of the known ones are not negotiable.',
     contact: {
       name: 'Sebastián Entrerrios García',
       email: 'sebssgarcia502580@gmail.com',
@@ -56,7 +63,7 @@ export const OPENAPI_SPEC = {
     },
     responses: {
       BadRequest: {
-        description: 'Invalid JSON body',
+        description: 'Invalid JSON, or the body failed validation (see `details`)',
         content: { 'application/json': { schema: { $ref: '#/components/schemas/Error' } } },
       },
       Unauthorized: {
@@ -94,7 +101,10 @@ export const OPENAPI_SPEC = {
       Error: {
         type: 'object',
         required: ['error'],
-        properties: { error: { type: 'string', description: 'Human-readable error message' } },
+        properties: {
+          error: { type: 'string', description: 'Human-readable error message' },
+          details: { type: 'array', items: { type: 'string' }, description: 'One entry per field that failed validation (400 only)' },
+        },
       },
       // ── Languages ─────────────────────────────────────────────────────────
       Language: {
@@ -221,6 +231,30 @@ export const OPENAPI_SPEC = {
         operationId: 'getRoot',
         responses: {
           '200': { description: 'API metadata object', content: { 'application/json': { schema: { type: 'object' } } } },
+        },
+      },
+    },
+
+    // ── All ──────────────────────────────────────────────────────────────────
+    '/all': {
+      get: {
+        tags: ['meta'],
+        summary: 'Every entity in one request',
+        description:
+          'Returns `{ languages, personal, jobs, projects, skills, education, certifications, "soft-skills" }`. ' +
+          'Array entities that are empty come back as `[]`, singular ones that are missing as `null`. ' +
+          'Sends an `ETag`; with `If-None-Match` an unchanged result is a `304`.',
+        operationId: 'getAll',
+        parameters: [
+          { name: 'If-None-Match', in: 'header', required: false, schema: { type: 'string' }, description: 'ETag from a previous response' },
+        ],
+        responses: {
+          '200': {
+            description: 'All entities',
+            headers: { ETag: { schema: { type: 'string' } }, 'Cache-Control': { schema: { type: 'string' } } },
+            content: { 'application/json': { schema: { type: 'object' } } },
+          },
+          '304': { description: 'Not modified' },
         },
       },
     },

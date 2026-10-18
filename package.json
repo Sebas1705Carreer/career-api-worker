@@ -6,12 +6,13 @@
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
     "seed": "npx tsx src/seed.ts",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "test": "node --import tsx --test test/*.test.ts"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20241127.0",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.2",
-    "wrangler": "^4.0.0",
-    "tsx": "^4.19.2"
+    "wrangler": "^4.0.0"
   }
 }

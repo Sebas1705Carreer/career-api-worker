@@ -62,6 +62,38 @@ GET /docs           → Swagger UI (interactive documentation)
 GET /openapi.json   → OpenAPI 3.0 specification
 ```
 
+### Everything in one request
+
+```
+GET /all
+```
+
+Returns `{ languages, personal, jobs, projects, skills, education, certifications, "soft-skills" }`: what the portfolio and Folio need to draw their first screen, in one request instead of eight. Empty array entities come back as `[]`, a missing singular one as `null`. The individual endpoints keep working.
+
+### Caching
+
+Every public `GET` carries an `ETag` (a hash of the body) and `Cache-Control: public, max-age=30, stale-while-revalidate=120`. A client that sends the tag back as `If-None-Match` gets an empty `304` when nothing changed. The window is short on purpose: an edit in Folio shows up on the portfolio within about a minute. Writes, errors and 404s are `Cache-Control: no-store`.
+
+### Validation
+
+Writes are checked before they are stored. A rejected one answers `400`:
+
+```json
+{ "error": "Validation failed", "details": ["level: must be an integer from 1 to 4"] }
+```
+
+| Rule | Where |
+|---|---|
+| `id` of a new item is a slug (`a-z`, `0-9`, hyphens) | `POST` |
+| Required fields are present: projects `name` + `context`, jobs `company`, skills `name` + `category` + `level`, education `school`, certifications `name` + `issuer`, soft skills `name`, personal `name` + `email` | `POST`, `PUT /personal` |
+| Localized fields are `{ "en": "text" }` maps with valid language codes; `achievements` is a map of string lists | every write |
+| `context` is `work`, `academic` or `personal`; `level` is an integer from 1 to 4 | every write |
+| Dates are `YYYY-MM` (or empty / `null`); links are `http(s)` URLs (or empty / `null`); `email` looks like one | every write |
+| The default language is one of the supported codes | `/languages` |
+| The body is valid JSON and at most 256 KB (`413` above that) | every write |
+
+Only the fields sent are checked on a `PATCH` (and on `PUT` of an item, which merges like `PATCH`). Unknown fields are accepted, so new fields do not need an API change.
+
 ---
 
 ### Languages (singular)
@@ -147,10 +179,12 @@ curl -X DELETE https://api.sebas1705.dev/projects/old-project \
 |---|---|
 | `200` | Success |
 | `201` | Created (POST) |
-| `400` | Bad request (missing/invalid body or `id` field) |
+| `304` | Not modified (the `If-None-Match` tag is current) |
+| `400` | Invalid JSON or failed validation (see `details`) |
 | `401` | Unauthorized (missing or invalid Bearer token) |
 | `404` | Entity or item not found |
 | `409` | Conflict (duplicate `id` on POST) |
+| `413` | Body larger than 256 KB |
 | `500` | Internal server error |
 
 ---
@@ -277,6 +311,8 @@ src/
 ├── router.ts       # Route definitions and dispatcher
 ├── auth.ts         # Bearer token authentication
 ├── cors.ts         # CORS headers and preflight handling
+├── cache.ts        # ETag + Cache-Control for the public reads (304 handling)
+├── validate.ts     # Write validation (types, required fields, languages)
 ├── kv.ts           # KV storage helpers (get, set, create, update, delete)
 ├── types.ts        # Env interface and entity type definitions
 ├── seed-data.ts    # Initial seed data for all entities
@@ -302,6 +338,14 @@ git clone https://github.com/Sebas1705Carreer/career-api-worker.git
 cd career-api-worker
 npm install --ignore-scripts
 ```
+
+### Tests
+
+```bash
+npm test
+```
+
+Runs the validation rules and the whole API (caching, `/all`, writes) against an in-memory KV. Set `LIVE_DATA_DIR` to a folder with one `<entity>.json` per entity (copies of the `GET` responses) to also check that the rules accept the data the API holds.
 
 ### Run locally
 

@@ -4,7 +4,9 @@ export function corsHeaders(env: Env): Record<string, string> {
   return {
     'Access-Control-Allow-Origin': env.ALLOWED_ORIGIN ?? '*',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, If-None-Match',
+    // Lets a browser script read the ETag it will send back as If-None-Match
+    'Access-Control-Expose-Headers': 'ETag',
     'Access-Control-Max-Age': '86400',
   }
 }
