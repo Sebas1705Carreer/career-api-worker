@@ -1,0 +1,261 @@
+{
+  "projects": [
+    {
+      "id": "owlsplit",
+      "name": "Owlsplit",
+      "context": "personal",
+      "desc": {
+        "en": "Shared group expenses for Android and iOS: offline-first, synced across members, with the fewest payments to settle up.",
+        "es": "Gastos compartidos en grupo para Android e iOS: funciona sin conexión, se sincroniza entre miembros y propone el menor número de pagos para saldar."
+      },
+      "tags": [
+        "Kotlin Multiplatform",
+        "Compose Multiplatform",
+        "SQLDelight",
+        "Koin",
+        "Firebase",
+        "Clean Architecture",
+        "iOS"
+      ],
+      "github": "https://github.com/Sebas1705/Owlsplit",
+      "demo": "https://owlsplit.web.app",
+      "long_desc": {
+        "en": "Kotlin Multiplatform app (Android + iOS) to track shared expenses on trips, in flats or at dinners: who paid what, how much each person owes and how to settle up with the fewest payments. It is offline-first, with a local database and a sync engine (outbox, listeners, conflict and deletion handling) over Firebase Auth and Firestore. Built with Compose Multiplatform, SQLDelight, Koin and Ktor on top of the Templetry kmp/modular-features template, with a documented domain model (money rules, splitting, currencies, debt simplification), a design system, a brand kit and architecture decision records. In public beta: the Android APK is distributed from its own download page and through Google Play closed testing; the UI is in Spanish and English and the code is MIT-licensed.",
+        "es": "App Kotlin Multiplatform (Android + iOS) para llevar los gastos compartidos de viajes, pisos o cenas: quién pagó qué, cuánto debe cada persona y cómo saldar con el menor número de pagos. Funciona sin conexión, con base de datos local y un motor de sincronización (outbox, listeners, gestión de conflictos y borrados) sobre Firebase Auth y Firestore. Construida con Compose Multiplatform, SQLDelight, Koin y Ktor sobre la plantilla kmp/modular-features de Templetry, con un modelo de dominio documentado (reglas de dinero, reparto, divisas, simplificación de deudas), un sistema de diseño, un kit de marca y registros de decisiones de arquitectura. En beta pública: el APK de Android se distribuye desde su propia página de descarga y por pruebas cerradas de Google Play; la interfaz está en español e inglés y el código es MIT."
+      }
+    },
+    {
+      "id": "haltera",
+      "name": "Haltera",
+      "context": "personal",
+      "desc": {
+        "en": "Free gym app for Android and iOS: flexible routines, equipment-aware load logging, rest timers and progression.",
+        "es": "App de gimnasio gratuita para Android e iOS: rutinas flexibles, registro de cargas según el material, temporizadores de descanso y progresión."
+      },
+      "tags": [
+        "Kotlin Multiplatform",
+        "Compose Multiplatform",
+        "SQLDelight",
+        "Firebase",
+        "Clean Architecture",
+        "iOS"
+      ],
+      "github": "https://github.com/Sebas1705/Haltera",
+      "demo": null,
+      "long_desc": {
+        "en": "Free gym logbook for Android and iOS built with Kotlin Multiplatform and designed around flexibility: routines of any number of days, load logging that knows the equipment, automatic rest timers, double progression, an exercise catalogue covering every kind of training and a catalogue of well-known routines. Body weight and nutrition logging are included. Your data stays yours: export to CSV and JSON, and import your history from Hevy, Strong, FitNotes or a Haltera export with a preview before anything is saved. An optional cloud copy of the logbook is off until you turn it on and can be deleted at any time. Built with Compose Multiplatform and SQLDelight, with migration checks, detekt and tests in CI and a documented design. Formerly called Ironlog; currently in alpha and MIT-licensed.",
+        "es": "Diario de gimnasio gratuito para Android e iOS hecho con Kotlin Multiplatform y pensado para ser flexible: rutinas de cualquier número de días, registro de cargas que conoce el material, temporizadores de descanso automáticos, doble progresión, un catálogo de ejercicios que cubre todo tipo de entrenamiento y un catálogo de rutinas conocidas. Incluye registro de peso corporal y de nutrición. Tus datos son tuyos: exportación a CSV y JSON e importación de tu historial desde Hevy, Strong, FitNotes o una exportación de Haltera, con vista previa antes de guardar nada. Una copia opcional en la nube del diario está desactivada hasta que la actives y se puede borrar cuando quieras. Construida con Compose Multiplatform y SQLDelight, con comprobación de migraciones, detekt y tests en CI y un diseño documentado. Se llamó Ironlog; está en alfa y su código es MIT."
+      }
+    },
+    {
+      "id": "parking-mpi",
+      "name": "Parking MPI",
+      "context": "academic",
+      "desc": {
+        "en": "MPI parking-lot simulator in C++: car and truck processes coordinated by a central admin process.",
+        "es": "Simulador de parking con MPI en C++: procesos de coches y camiones coordinados por un proceso administrador central."
+      },
+      "tags": [
+        "C++",
+        "MPI",
+        "HPC",
+        "Concurrency"
+      ],
+      "github": "https://github.com/Sebas1705/parking-mpi",
+      "demo": null,
+      "long_desc": {
+        "en": "High-performance-computing coursework in C++ with MPI. Every vehicle runs as an independent process that sends enter and exit requests to an admin process, which arbitrates access to the shared spots. It grows through three versions: cars on a single floor, cars and trucks (a truck takes two consecutive spots) and a multi-floor lot with cars and trucks. Each version ships with its Makefile and a hostfile to run it across several nodes.",
+        "es": "Práctica de computación de altas prestaciones en C++ con MPI. Cada vehículo es un proceso independiente que envía peticiones de entrada y salida a un proceso administrador, que arbitra el acceso a las plazas compartidas. Evoluciona en tres versiones: coches en una sola planta, coches y camiones (un camión ocupa dos plazas consecutivas) y un parking de varias plantas con coches y camiones. Cada versión incluye su Makefile y un hostfile para ejecutarla en varios nodos."
+      }
+    },
+    {
+      "id": "mbapp",
+      "name": "mBapp",
+      "context": "academic",
+      "desc": {
+        "en": "Robotics project: a smart minibar controlled by an Android app, built by a team of three.",
+        "es": "Proyecto de robótica: un minibar inteligente controlado desde una app Android, hecho por un equipo de tres."
+      },
+      "tags": [
+        "Kotlin",
+        "Jetpack Compose",
+        "C++",
+        "PlatformIO",
+        "ESP32",
+        "Bluetooth"
+      ],
+      "github": "https://github.com/Roboto-Domoto/mBapp",
+      "demo": null,
+      "long_desc": {
+        "en": "Robotics project built with two teammates: a smart minibar, with the bar side written in C++ using PlatformIO and a Kotlin + Jetpack Compose Android app. Customers pick products, the app shows the minibar status while it is idle and keeps the history of transactions and the inventory that is available. An employee mode behind a password lets staff review every operation, report missing stock and restock products, and the system also handles temperature regulation. A separate demo repository tested the Bluetooth link between an Android app, an ESP32 and a barcode reader.",
+        "es": "Proyecto de robótica hecho con dos compañeros: un minibar inteligente, con la parte del minibar escrita en C++ con PlatformIO y una app Android en Kotlin + Jetpack Compose. Los clientes eligen productos, la app muestra el estado del minibar en reposo y guarda el historial de transacciones y el inventario disponible. Un modo empleado con contraseña permite revisar todas las operaciones, avisar de falta de stock y reponer productos, y el sistema también regula la temperatura. Un repositorio de demostración aparte probó la conexión Bluetooth entre una app Android, un ESP32 y un lector de códigos de barras."
+      }
+    },
+    {
+      "id": "impostor",
+      "name": "Omni-Impostor",
+      "context": "personal",
+      "desc": {
+        "en": "Offline party game for groups: find the impostor before time runs out. Published on Google Play.",
+        "es": "Juego de fiesta sin conexión para grupos: encuentra al impostor antes de que se acabe el tiempo. Publicado en Google Play."
+      },
+      "tags": [
+        "Kotlin",
+        "Jetpack Compose",
+        "Firebase",
+        "Multi-Module",
+        "Detekt",
+        "CI/CD",
+        "Hilt",
+        "Material 3"
+      ],
+      "github": "https://github.com/Sebas1705/Omni-Impostor",
+      "demo": "https://play.google.com/store/apps/details?id=es.sebas1705.impostorandroidgame",
+      "long_desc": {
+        "en": "Digital party game for groups, published on Google Play. Every player secretly receives a word: most share the same one, but one or more are impostors with a different word, and the group debates, votes and tries to unmask them before time runs out. Pass-the-phone play with 44 word categories in Spanish and English, an animated 3D reveal card, a local ranking with win counts and streaks, and Google Sign-In with Firebase Auth. Built as a production-grade template: multi-module Clean Architecture (app, core, data, domain, feature) with Hilt, Material Design 3 with three contrast levels and a WCAG AA contrast guard, Gradle convention plugins, Detekt, LeakCanary and Chucker for diagnostics, and CI on GitHub Actions that attaches the AAB to each release. The online mode was removed to focus on the offline experience.",
+        "es": "Juego de fiesta digital para grupos, publicado en Google Play. Cada jugador recibe en secreto una palabra: la mayoría comparte la misma, pero uno o más son impostores con una palabra distinta, y el grupo debate, vota e intenta desenmascararlos antes de que se acabe el tiempo. Se juega pasándose el móvil, con 44 categorías de palabras en español e inglés, una carta de revelación 3D animada, un ranking local con victorias y rachas, y inicio de sesión con Google y Firebase Auth. Construido como plantilla de nivel producción: arquitectura limpia multimódulo (app, core, data, domain, feature) con Hilt, Material Design 3 con tres niveles de contraste y una comprobación de contraste WCAG AA, convention plugins de Gradle, Detekt, LeakCanary y Chucker para diagnóstico, y CI con GitHub Actions que adjunta el AAB a cada release. El modo online se retiró para centrarse en la experiencia sin conexión."
+      }
+    },
+    {
+      "id": "aimobidemo",
+      "name": "AIMobiDemo",
+      "context": "personal",
+      "desc": {
+        "en": "On-device and cloud generative AI on Android: five engines tried in order with automatic fallback to cover any hardware.",
+        "es": "IA generativa on-device y en la nube en Android: cinco motores probados en orden con fallback automático para cubrir cualquier hardware."
+      },
+      "tags": [
+        "Kotlin",
+        "Jetpack Compose",
+        "Gemini Nano",
+        "MediaPipe",
+        "LiteRT",
+        "Firebase",
+        "LLM"
+      ],
+      "github": "https://github.com/Sebas1705/nanodemo",
+      "demo": null,
+      "long_desc": {
+        "en": "Kotlin + Jetpack Compose demo that compares Android's generative AI engines and falls back automatically when the device or configuration cannot run one: ML Kit GenAI Prompt API (Gemini Nano via AICore, flagships only), MediaPipe LLM Inference (Gemma running inside the app, mid-range devices), the Gemini REST API, LiteRT-LM with Gemma 4 E2B (on-device, image input, resumable chat history) and Firebase AI Logic. Each engine is a reusable Gradle module, models are released from memory when switching tiers, the cloud tier uses web search to ground answers and tracks the daily quota, and the APK ships through Firebase App Distribution only (it carries API keys, so it never goes on a public release) with secrets managed in Doppler.",
+        "es": "Demo en Kotlin + Jetpack Compose que compara los motores de IA generativa de Android y cae automáticamente al siguiente cuando el dispositivo o la configuración no soporta uno: ML Kit GenAI Prompt API (Gemini Nano vía AICore, solo flagships), MediaPipe LLM Inference (Gemma dentro de la propia app, gama media), la API REST de Gemini, LiteRT-LM con Gemma 4 E2B (on-device, entrada de imágenes, historial de chat recuperable) y Firebase AI Logic. Cada motor es un módulo Gradle reutilizable, los modelos se liberan de memoria al cambiar de tier, el tier en la nube usa búsqueda web para fundamentar respuestas y controla la cuota diaria, y el APK se distribuye solo por Firebase App Distribution (lleva claves de API, así que nunca va en una release pública) con secretos gestionados en Doppler."
+      }
+    },
+    {
+      "id": "winforge",
+      "name": "WinForge",
+      "context": "personal",
+      "desc": {
+        "en": "Windows app and dev-toolchain installer built on winget: a curated, verified catalog of 800+ apps, 40+ profiles, PC health and repair, and backups.",
+        "es": "Instalador de apps y toolchains de desarrollo para Windows sobre winget: catálogo verificado de más de 800 apps, más de 40 perfiles, salud y reparación del PC, y copias de seguridad."
+      },
+      "tags": [
+        "Go",
+        "Wails",
+        "React",
+        "TypeScript",
+        "PowerShell",
+        "winget",
+        "CI/CD"
+      ],
+      "github": "https://github.com/Sebas1705/WinForge",
+      "demo": "https://github.com/Sebas1705/WinForge/releases/latest",
+      "long_desc": {
+        "en": "Native Windows desktop app (Wails: Go backend + React/TypeScript UI) that scans the PC, shows which apps of a curated catalog are installed and applies profiles — from 'Essentials' to 'Rust', 'Android' or 'Containers' — installing only what is missing. Reliability first: every catalog app (800+) is pinned to a winget package and an expected publisher, and a verifier checks them against microsoft/winget-pkgs (publisher match against hijacked or typosquatted ids, HTTPS-only installers) and writes a lock file so every change is a reviewable diff. Profiles are data-only and extend each other; post-install steps live only in vetted, idempotent recipes. Detection combines winget's inventory, the Uninstall registry and PATH. Also: an updates view, export of any plan as a standalone PowerShell script, a read-only PC health module (firmware, drivers, storage, security, Windows Update) with vendor links, a store-style UI with app icons, simple/advanced modes, Spanish/English, a headless CLI and a SHA-256-verified in-app updater. Since the first release it has also learned to rebuild a PC from a backup (30 sets of settings with checksums, an integrity check and a full backup that lists the apps), to run a guided PC repair with a restore point (DISM, SFC and maintenance tasks), to share setups with share codes, to resume interrupted installs and to explain each failure with a retry. A games hub detects installed emulators, ships a catalogue of emulators, mods and engines, and installs 19 freely redistributable games with pinned SHA-256 checksums, plus an IPS/UPS/BPS patcher. CI with an installer smoke test and automated releases (v0.9 at the time of writing).",
+        "es": "App de escritorio nativa para Windows (Wails: backend en Go + UI en React/TypeScript) que escanea el PC, muestra qué apps de un catálogo curado están instaladas y aplica perfiles — de 'Esenciales' a 'Rust', 'Android' o 'Contenedores' — instalando solo lo que falta. La fiabilidad es lo primero: cada app del catálogo (más de 800) está fijada a un paquete de winget y a un publisher esperado, y un verificador las comprueba contra microsoft/winget-pkgs (coincidencia de publisher contra ids secuestrados o typosquatting, instaladores solo HTTPS) y genera un lock file para que cada cambio sea un diff revisable. Los perfiles son solo datos y se extienden entre sí; los pasos post-instalación viven solo en recetas revisadas e idempotentes. La detección combina el inventario de winget, el registro de desinstalación y el PATH. Además: vista de actualizaciones, exportación de cualquier plan como script de PowerShell autónomo, módulo de salud del PC de solo lectura (firmware, drivers, almacenamiento, seguridad, Windows Update) con enlaces al fabricante, UI estilo tienda con iconos, modos simple/avanzado, español/inglés, CLI headless y auto-actualizador verificado con SHA-256. Desde la primera versión también ha aprendido a reconstruir un PC desde una copia de seguridad (30 conjuntos de ajustes con checksums, comprobación de integridad y una copia completa que lista las apps), a hacer una reparación guiada del PC con punto de restauración (DISM, SFC y tareas de mantenimiento), a compartir configuraciones con códigos, a reanudar instalaciones interrumpidas y a explicar cada fallo con reintento. Un centro de juegos detecta los emuladores instalados, incluye un catálogo de emuladores, mods y motores, e instala 19 juegos de libre distribución con checksums SHA-256 fijados, además de un parcheador IPS/UPS/BPS. CI con smoke test del instalador y releases automatizadas (v0.9 al escribir esto)."
+      }
+    },
+    {
+      "id": "youknow",
+      "name": "YouKnow",
+      "context": "academic",
+      "desc": {
+        "en": "Android trivia and quiz app: Jetpack Compose, Firebase and multi-module Clean Architecture, shipped through an automated release pipeline.",
+        "es": "App Android de trivia y quiz: Jetpack Compose, Firebase y Clean Architecture multimódulo, publicada con un pipeline de releases automatizado."
+      },
+      "tags": [
+        "Kotlin",
+        "Jetpack Compose",
+        "Firebase",
+        "Hilt",
+        "Clean Architecture",
+        "MVI",
+        "CI/CD"
+      ],
+      "github": "https://github.com/Sebas1705/YouKnow",
+      "demo": "https://github.com/Sebas1705/YouKnow/releases/latest",
+      "long_desc": {
+        "en": "Started as my bachelor's final project and kept alive as a product. Android trivia app with four game modes over OpenTriviaDB questions, Firebase Auth, Firestore, Realtime Database and Storage, audio feedback and an onboarding guide. Rebuilt in 2026 on the Templetry android/modular-features template: multi-module Clean Architecture (core/data/domain/feature), Navigation 3, Hilt, Gradle convention plugins and Development/Staging/Production flavors. Secrets live in Doppler; tagging a version builds a signed APK and publishes it to GitHub Releases and Firebase App Distribution. Firebase security rules are tested against the emulator on every PR and deployed from CI. Games redesigned with a shared component kit. Version 1.4 adds downloading more questions from OpenTDB, real profile-photo upload to Cloud Storage, a usability survey, an offline banner instead of blocking the whole app and background music that stops when the app leaves the foreground.",
+        "es": "Nació como mi proyecto de fin de grado y sigue vivo como producto. App Android de trivia con cuatro modos de juego sobre preguntas de OpenTriviaDB, Firebase Auth, Firestore, Realtime Database y Storage, feedback sonoro y guía de bienvenida. Reconstruida en 2026 sobre la plantilla android/modular-features de Templetry: Clean Architecture multimódulo (core/data/domain/feature), Navigation 3, Hilt, convention plugins de Gradle y flavors Development/Staging/Production. Los secretos viven en Doppler; etiquetar una versión genera un APK firmado y lo publica en GitHub Releases y Firebase App Distribution. Las reglas de seguridad de Firebase se prueban contra el emulador en cada PR y se despliegan desde CI. Juegos rediseñados con un kit de componentes compartido. La versión 1.4 añade la descarga de más preguntas de OpenTDB, subida real de la foto de perfil a Cloud Storage, una encuesta de usabilidad, un aviso sin conexión en vez de bloquear toda la app y música de fondo que se detiene cuando la app deja de estar en primer plano."
+      }
+    },
+    {
+      "id": "career-ecosystem",
+      "name": "Career Ecosystem (Folio)",
+      "context": "personal",
+      "desc": {
+        "en": "Portfolio as a product: a Cloudflare Workers API as single source of truth, a React portfolio and Folio, a KMP editor for Android.",
+        "es": "Portfolio como producto: una API en Cloudflare Workers como fuente única de verdad, un portfolio en React y Folio, un editor KMP para Android."
+      },
+      "tags": [
+        "Cloudflare Workers",
+        "TypeScript",
+        "React",
+        "Kotlin Multiplatform",
+        "Ktor"
+      ],
+      "github": "https://github.com/Sebas1705Carreer",
+      "demo": null,
+      "long_desc": {
+        "en": "A portfolio built as a product. One REST API (Cloudflare Workers + KV, TypeScript, OpenAPI/Swagger, language-map i18n model, ETag caching, a one-request /all endpoint, validated writes and an automated test suite) is the single source of truth for all career data; this React 19 site consumes it live with an offline fallback snapshot; Folio, an Android editor built with Kotlin Multiplatform and Compose (Ktor, the API token built in from Doppler, distributed through Firebase App Distribution), writes to it with Bearer auth; and an in-browser generator produces role-tailored CVs in two variants — visual for human readers and single-column ATS-optimised for parsers and AI screening. Secrets managed in Doppler, CI/CD on GitHub Actions, documentation as a living state-of-the-art wiki.",
+        "es": "Un portfolio construido como producto. Una API REST (Cloudflare Workers + KV, TypeScript, OpenAPI/Swagger, modelo i18n por idioma, caché con ETag, un endpoint /all de una sola petición, escrituras validadas y una batería de tests automáticos) es la fuente única de verdad de todos los datos de carrera; esta web en React 19 la consume en vivo con un fallback offline; Folio, un editor para Android hecho con Kotlin Multiplatform y Compose (Ktor, token de la API incluido desde Doppler, distribuido por Firebase App Distribution), escribe en ella con autenticación Bearer; y un generador in-browser produce CVs adaptados por rol en dos variantes — visual para personas y columna única optimizada para ATS e IA. Secretos gestionados en Doppler, CI/CD con GitHub Actions y documentación como wiki de estado del arte viva."
+      }
+    },
+    {
+      "id": "templetry",
+      "name": "Templetry",
+      "context": "personal",
+      "desc": {
+        "en": "Project scaffolding for every platform: pure Go engine + CLI, native desktop app (Wails) and a CI-verified template catalog.",
+        "es": "Scaffolding de proyectos multiplataforma: engine en Go + CLI, app de escritorio nativa (Wails) y catálogo de plantillas verificado por CI."
+      },
+      "tags": [
+        "Go",
+        "Wails",
+        "React",
+        "TypeScript",
+        "Kotlin Multiplatform",
+        "MCP",
+        "CI/CD"
+      ],
+      "github": "https://github.com/Templetry",
+      "demo": null,
+      "long_desc": {
+        "en": "Open-source project scaffolding ecosystem. A pure Go engine + CLI renders ready-to-work repositories from compilable templates: all framework knowledge lives in each template's template.yml manifest (identity renaming, comment directives, structured JSON patches), rendering is deterministic — same inputs, byte-identical output — and 'templetry verify' compiles the result in Docker. Around the engine: a CI-verified catalog of 29 forms across 12 parent templates (Android, Kotlin Multiplatform, iOS, web, browser extensions, Go, Rust, Node, Python, JVM and .NET) with combinable features and 17 shared 'pieces'; a meta-template that scaffolds new templates; an MCP server so AI assistants can create projects; a native desktop app built with Wails (browse the catalog, fill the dynamic form, preview the plan, three-way-merge template updates, auto-update); and a wiki with ADRs and normative specs. Distributed as multi-platform binaries with SHA256 checksums, a Homebrew tap and a Scoop bucket, with a shared Renovate preset across every repository. Used to build my own apps (YouKnow, AdSkipper).",
+        "es": "Ecosistema open-source de scaffolding de proyectos. Un engine en Go puro + CLI genera repositorios listos para trabajar desde plantillas compilables: todo el conocimiento del framework vive en el manifiesto template.yml de cada plantilla (renombrado por identidad, directivas en comentarios, parches JSON estructurados), el renderizado es determinista — mismas entradas, salida idéntica byte a byte — y 'templetry verify' compila el resultado en Docker. Alrededor del engine: un catálogo verificado por CI de 29 formas en 12 plantillas parent (Android, Kotlin Multiplatform, iOS, web, extensiones de navegador, Go, Rust, Node, Python, JVM y .NET) con features combinables y 17 'pieces' compartidas; una meta-plantilla que genera nuevas plantillas; un servidor MCP para que los asistentes de IA creen proyectos; una app de escritorio nativa con Wails (explora el catálogo, rellena el formulario dinámico, previsualiza el plan, actualiza plantillas con three-way merge, auto-update); y una wiki con ADRs y especificaciones normativas. Distribuido como binarios multiplataforma con checksums SHA256, un tap de Homebrew y un bucket de Scoop, con un preset de Renovate compartido en todos los repos. Lo uso para construir mis propias apps (YouKnow, AdSkipper)."
+      }
+    }
+  ],
+  "skills": [
+    {
+      "id": "sqldelight",
+      "name": "SQLDelight",
+      "category": "databases",
+      "level": 2,
+      "icon_url": null
+    },
+    {
+      "id": "koin",
+      "name": "Koin",
+      "category": "frameworks",
+      "level": 2,
+      "icon_url": null
+    },
+    {
+      "id": "esp32",
+      "name": "ESP32",
+      "category": "tools",
+      "level": 1,
+      "icon_url": null
+    }
+  ]
+}
