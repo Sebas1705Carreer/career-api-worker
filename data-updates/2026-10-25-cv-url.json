@@ -1,0 +1,30 @@
+{
+  "personal": {
+    "name": "Sebastián Entrerrios García",
+    "email": "sebssgarcia502580@gmail.com",
+    "cv_url": "https://sebas1705carreer.github.io/carreerV2/cv/cv-en.pdf",
+    "github": "https://github.com/Sebas1705",
+    "linkedin": "https://www.linkedin.com/in/sebastian-ramiro-entrerrios-garcia-b1a713217/",
+    "codewars": "https://www.codewars.com/users/Sebas1705",
+    "greeting": {
+      "en": "Hi, I'm",
+      "es": "Hola, soy"
+    },
+    "role": {
+      "en": "Full Stack & Mobile Developer",
+      "es": "Desarrollador Full Stack & Móvil"
+    },
+    "tagline": {
+      "en": "Full stack and mobile engineer: design fast frontends, solid APIs and production-ready mobile experiences.",
+      "es": "Ingeniero full stack y móvil: diseño frontends rápidos, APIs sólidas y experiencias móviles listas para producción."
+    },
+    "bio": {
+      "en": "Based in Madrid, Spain. I build digital products with care — from native mobile apps to full-stack web systems.",
+      "es": "Con base en Madrid, España. Construyo productos digitales con cuidado — desde apps móviles nativas hasta sistemas web full-stack."
+    },
+    "location": {
+      "en": "Madrid, Spain",
+      "es": "Madrid, España"
+    }
+  }
+}
