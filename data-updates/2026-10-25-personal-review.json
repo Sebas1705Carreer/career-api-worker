@@ -1,0 +1,167 @@
+{
+  "projects": [
+    {
+      "id": "career-ecosystem",
+      "name": "Career Ecosystem (Folio)",
+      "context": "personal",
+      "desc": {
+        "en": "Portfolio as a product: a Cloudflare Workers API as single source of truth, a React portfolio and Folio, a KMP editor for Android.",
+        "es": "Portfolio como producto: una API en Cloudflare Workers como fuente única de verdad, un portfolio en React y Folio, un editor KMP para Android."
+      },
+      "tags": [
+        "Cloudflare Workers",
+        "TypeScript",
+        "React",
+        "Kotlin Multiplatform",
+        "Ktor"
+      ],
+      "github": "https://github.com/Sebas1705Carreer",
+      "demo": "https://sebas1705carreer.github.io/carreerV2/",
+      "long_desc": {
+        "en": "A portfolio built as a product. One REST API (Cloudflare Workers + KV, TypeScript, OpenAPI/Swagger, language-map i18n model, ETag caching, a one-request /all endpoint, validated writes and an automated test suite) is the single source of truth for all career data; this React 19 site consumes it live with an offline fallback snapshot; Folio, an Android editor built with Kotlin Multiplatform and Compose (Ktor, the API token built in from Doppler, distributed through Firebase App Distribution), writes to it with Bearer auth; and an in-browser generator produces role-tailored CVs in two variants — visual for human readers and single-column ATS-optimised for parsers and AI screening. Secrets managed in Doppler, CI/CD on GitHub Actions, documentation as a living state-of-the-art wiki.",
+        "es": "Un portfolio construido como producto. Una API REST (Cloudflare Workers + KV, TypeScript, OpenAPI/Swagger, modelo i18n por idioma, caché con ETag, un endpoint /all de una sola petición, escrituras validadas y una batería de tests automáticos) es la fuente única de verdad de todos los datos de carrera; esta web en React 19 la consume en vivo con un fallback offline; Folio, un editor para Android hecho con Kotlin Multiplatform y Compose (Ktor, token de la API incluido desde Doppler, distribuido por Firebase App Distribution), escribe en ella con autenticación Bearer; y un generador in-browser produce CVs adaptados por rol en dos variantes — visual para personas y columna única optimizada para ATS e IA. Secretos gestionados en Doppler, CI/CD con GitHub Actions y documentación como wiki de estado del arte viva."
+      }
+    },
+    {
+      "id": "portfolio",
+      "name": "Personal Portfolio v1",
+      "context": "personal",
+      "desc": {
+        "en": "Previous portfolio: Astro + Clean Architecture, 10 languages.",
+        "es": "Portfolio anterior: Astro + Arquitectura Limpia, 10 idiomas."
+      },
+      "tags": [
+        "Astro",
+        "TypeScript",
+        "Clean Architecture",
+        "Docker",
+        "Vitest",
+        "Playwright"
+      ],
+      "github": "https://github.com/Sebas1705Carreer/carreerV1",
+      "demo": "https://sebas1705carreer.github.io/carreerV1/",
+      "long_desc": {
+        "en": "Multi-language Astro website (10 languages: ES, EN, FR, DE, IT, PT, NL, PL, RU and JA) built with Clean Architecture (Domain, Application, Infrastructure and Presentation layers), reading the career API at build time. It is served from GitHub Pages, with CI that type-checks, runs the unit tests and the Playwright end-to-end tests before every deploy; it used to run on a self-hosted VPS with Docker Compose and Nginx Proxy Manager. WCAG accessibility compliance, 100% Vitest unit coverage and 91.66% branch coverage.",
+        "es": "Web Astro multiidioma (10 idiomas: ES, EN, FR, DE, IT, PT, NL, PL, RU y JA) construida con Arquitectura Limpia (capas Domain, Application, Infrastructure y Presentation), que lee la API de carrera al compilar. Se sirve desde GitHub Pages, con una CI que comprueba tipos y ejecuta los tests unitarios y los e2e con Playwright antes de cada despliegue; antes corría en un VPS propio con Docker Compose y Nginx Proxy Manager. Accesibilidad WCAG, 100% de cobertura unitaria con Vitest y 91.66% de ramas."
+      }
+    },
+    {
+      "id": "codewars",
+      "name": "Codewars Katas",
+      "context": "personal",
+      "desc": {
+        "en": "17 Codewars katas solved in 6 languages: same problem, different idioms.",
+        "es": "17 katas de Codewars resueltos en 6 lenguajes: mismo problema, distintos idiomas."
+      },
+      "tags": [
+        "C",
+        "Java",
+        "Kotlin",
+        "JavaScript",
+        "TypeScript",
+        "Python"
+      ],
+      "github": "https://github.com/Sebas1705/Codewars",
+      "demo": null,
+      "long_desc": {
+        "en": "Personal repo to sharpen algorithmic thinking: 17 katas, from 4-kyu to 7-kyu, each one solved in the same six languages (C, Java, Kotlin, JavaScript, TypeScript and Python) with the same structure and tests, to see how every language expresses the same algorithm. Topics include string arithmetic, dynamic programming, recursion and linear algebra, tree traversal and bit manipulation.",
+        "es": "Repositorio personal para agudizar el pensamiento algorítmico: 17 katas, de 4-kyu a 7-kyu, cada uno resuelto en los mismos seis lenguajes (C, Java, Kotlin, JavaScript, TypeScript y Python) con la misma estructura y tests, para ver cómo cada lenguaje expresa el mismo algoritmo. Incluye aritmética con cadenas, programación dinámica, recursión y álgebra lineal, recorrido de árboles y manipulación de bits."
+      }
+    },
+    {
+      "id": "vpsorchestrator",
+      "name": "Local VPS Orchestrator",
+      "context": "academic",
+      "desc": {
+        "en": "Self-hosted REST API to orchestrate VPS resources with RBAC, AES-256-GCM encryption and 555 automated tests.",
+        "es": "API REST autoalojada para orquestar recursos de un VPS con RBAC, cifrado AES-256-GCM y 555 tests automáticos."
+      },
+      "tags": [
+        "Node.js",
+        "Express",
+        "TypeScript",
+        "Docker",
+        "RBAC",
+        "Jest"
+      ],
+      "github": "https://github.com/Sebas1705/VPSLocalOrchestrator",
+      "demo": null,
+      "long_desc": {
+        "en": "Built for the AI Development Master's. A self-hosted REST API in Node.js + Express 5 + TypeScript (v1.2.0, 27 route modules, one per feature domain) that monitors CPU, memory and disk metrics, manages Docker containers and systemd services, runs queries and migrations on databases and schedules automated tasks. Features role-based access control, AES-256-GCM encryption, audit logging and distributed tracing, with 555 automated tests across 23 suites (Jest + Supertest). Fully containerised with Docker Compose or deployable as a systemd service.",
+        "es": "Desarrollado para el Máster en Desarrollo con IA. API REST autoalojada en Node.js + Express 5 + TypeScript (v1.2.0, 27 módulos de rutas, uno por dominio funcional) que monitoriza métricas de CPU, memoria y disco, gestiona contenedores Docker y servicios systemd, ejecuta consultas y migraciones en bases de datos y programa tareas automatizadas. Incluye control de acceso por roles, cifrado AES-256-GCM, auditoría y trazabilidad distribuida, con 555 tests automáticos en 23 suites (Jest + Supertest). Completamente contenedorizada con Docker Compose o desplegable como servicio systemd."
+      }
+    }
+  ],
+  "skills": [
+    {
+      "id": "kotlin-coroutines",
+      "name": "Kotlin Coroutines",
+      "category": "frameworks",
+      "level": 3,
+      "icon_url": null
+    },
+    {
+      "id": "kotlinx-serialization",
+      "name": "kotlinx.serialization",
+      "category": "frameworks",
+      "level": 3,
+      "icon_url": null
+    },
+    {
+      "id": "navigation-3",
+      "name": "Navigation 3",
+      "category": "frameworks",
+      "level": 2,
+      "icon_url": null
+    },
+    {
+      "id": "room",
+      "name": "Room",
+      "category": "databases",
+      "level": 2,
+      "icon_url": null
+    },
+    {
+      "id": "retrofit",
+      "name": "Retrofit",
+      "category": "frameworks",
+      "level": 2,
+      "icon_url": null
+    },
+    {
+      "id": "coil",
+      "name": "Coil",
+      "category": "frameworks",
+      "level": 2,
+      "icon_url": null
+    },
+    {
+      "id": "datastore",
+      "name": "DataStore",
+      "category": "frameworks",
+      "level": 2,
+      "icon_url": null
+    },
+    {
+      "id": "firebase-crashlytics",
+      "name": "Firebase Crashlytics",
+      "category": "tools",
+      "level": 2,
+      "icon_url": null
+    },
+    {
+      "id": "leakcanary",
+      "name": "LeakCanary",
+      "category": "tools",
+      "level": 2,
+      "icon_url": null
+    },
+    {
+      "id": "junit",
+      "name": "JUnit",
+      "category": "tools",
+      "level": 2,
+      "icon_url": null
+    }
+  ]
+}
