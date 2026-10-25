@@ -1,0 +1,15 @@
+{
+  "certifications": [
+    {
+      "id": "ios-swiftui-uikit-udemy",
+      "name": "iOS App Development with SwiftUI and UIKit",
+      "issuer": "Udemy",
+      "date": "Jun 2026",
+      "url": "https://www.udemy.com/certificate/UC-bafda137-d1bc-4af7-9a41-8ff986049d50/",
+      "long_desc": {
+        "en": "Native iOS development across both UI frameworks: SwiftUI's declarative model and UIKit fundamentals, view lifecycles, navigation patterns and app architecture. A 54.5-hour course, completed in June 2026, reinforcing the production iOS work on Transportes Chinchón.",
+        "es": "Desarrollo iOS nativo en ambos frameworks de UI: el modelo declarativo de SwiftUI y los fundamentos de UIKit, ciclos de vida de vistas, patrones de navegación y arquitectura de apps. Curso de 54,5 horas, completado en junio de 2026, que refuerza el trabajo iOS en producción de Transportes Chinchón."
+      }
+    }
+  ]
+}
