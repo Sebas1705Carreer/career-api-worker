@@ -1,0 +1,11 @@
+{
+  "skills": [
+    {
+      "id": "cloudflare",
+      "name": "Cloudflare",
+      "category": "cloud",
+      "level": 3,
+      "icon_url": "https://img.icons8.com/color/100/cloudflare.png"
+    }
+  ]
+}
