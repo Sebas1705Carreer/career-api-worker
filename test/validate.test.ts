@@ -15,6 +15,43 @@ test('a project as Folio sends it (empty maps, null links) is valid', () => {
   }, 'patch'))
 })
 
+// ── Project image ─────────────────────────────────────────────────────────────
+
+test('a project image is an absolute https URL with a localized alt', () => {
+  ok(validateEntity('projects', {
+    id: 'youknow', name: 'YouKnow', context: 'academic',
+    image_url: 'https://sebas1705carreer.github.io/carreerV2/projects/youknow.webp',
+    image_alt: { es: 'Pantalla de inicio de YouKnow', en: 'YouKnow home screen' },
+  }, 'create'))
+  ok(validateEntity('projects', { image_url: 'https://example.com/a.webp?v=2', image_alt: {} }, 'patch'))
+})
+
+test('a project image may be null, empty or omitted (existing data stays valid)', () => {
+  ok(validateEntity('projects', { id: 'p', name: 'P', context: 'work', image_url: null, image_alt: null }, 'create'))
+  ok(validateEntity('projects', { image_url: '' }, 'patch'))
+  ok(validateEntity('projects', { id: 'p', name: 'P', context: 'work', github: null, demo: null }, 'create'))
+  ok(validateEntity('projects', { id: 'p', name: 'P', context: 'work' }, 'replace'))
+})
+
+test('a project image must be https and of a sane length', () => {
+  bad(validateEntity('projects', { image_url: 'http://example.com/a.webp' }, 'patch'), 'image_url: must be an absolute https URL')
+  bad(validateEntity('projects', { image_url: 'ftp://example.com/a.webp' }, 'patch'), 'image_url')
+  bad(validateEntity('projects', { image_url: 'javascript:alert(1)' }, 'patch'), 'image_url')
+  bad(validateEntity('projects', { image_url: 'data:image/png;base64,AAAA' }, 'patch'), 'image_url')
+  bad(validateEntity('projects', { image_url: '/carreerV2/projects/a.webp' }, 'patch'), 'image_url')
+  bad(validateEntity('projects', { image_url: 'https://' }, 'patch'), 'image_url')
+  bad(validateEntity('projects', { image_url: 'https://example.com/a b.webp' }, 'patch'), 'image_url')
+  bad(validateEntity('projects', { image_url: 42 }, 'patch'), 'image_url')
+  bad(validateEntity('projects', { image_url: 'https://example.com/' + 'a'.repeat(2048) }, 'patch'), 'image_url: must be at most 2048')
+})
+
+test('a project image alt is a localized map or null', () => {
+  bad(validateEntity('projects', { image_alt: 'A screenshot' }, 'patch'), 'image_alt')
+  bad(validateEntity('projects', { image_alt: { en: 5 } }, 'patch'), 'image_alt')
+  bad(validateEntity('projects', { image_alt: { 'EN!': 'x' } }, 'patch'), 'image_alt')
+  bad(validateEntity('projects', { image_alt: ['x'] }, 'patch'), 'image_alt')
+})
+
 test('creating a project needs id, name and context', () => {
   ok(validateEntity('projects', { id: 'new-one', name: 'New', context: 'personal' }, 'create'))
   bad(validateEntity('projects', { name: 'New', context: 'personal' }, 'create'), 'id')
