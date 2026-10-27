@@ -165,3 +165,80 @@ test('the default language cannot be set to one that is not supported', async ()
   assert.equal((await call('/languages', { method: 'PATCH', auth: true, json: { default: 'fr' } })).status, 400)
   assert.equal((await call('/languages', { method: 'PATCH', auth: true, json: { default: 'es' } })).status, 200)
 })
+
+// ── /auth/check ───────────────────────────────────────────────────────────────
+
+/** Like app(), but every KV method call is recorded, so a test can prove the route never touches KV. */
+function spiedApp() {
+  const kv = fakeKv(SEED) as Record<string, (...args: unknown[]) => unknown>
+  const kvCalls: string[] = []
+  const spy = new Proxy(kv, {
+    get(target, prop) {
+      const value = target[prop as string]
+      if (typeof value !== 'function') return value
+      return (...args: unknown[]) => { kvCalls.push(String(prop)); return value(...args) }
+    },
+  })
+  const env = { CAREER_KV: spy, API_SECRET: 'secret', ALLOWED_ORIGIN: '*' } as never
+  const call = (headers: Record<string, string> = {}, method = 'GET') =>
+    worker.fetch(new Request('https://api.test/auth/check', { method, headers }), env)
+  return { call, kvCalls }
+}
+
+test('/auth/check with the right token is an empty 204', async () => {
+  const res = await spiedApp().call({ Authorization: 'Bearer secret' })
+  assert.equal(res.status, 204)
+  assert.equal(await res.text(), '')
+})
+
+test('/auth/check without a token is a 401 with the usual error body', async () => {
+  const res = await spiedApp().call()
+  assert.equal(res.status, 401)
+  assert.deepEqual(await res.json(), { error: 'Unauthorized' })
+})
+
+test('/auth/check with a wrong token, or not a Bearer one, is a 401', async () => {
+  const { call } = spiedApp()
+  const wrong = await call({ Authorization: 'Bearer nope' })
+  assert.equal(wrong.status, 401)
+  assert.deepEqual(await wrong.json(), { error: 'Unauthorized' })
+  assert.equal((await call({ Authorization: 'secret' })).status, 401)
+  assert.equal((await call({ Authorization: 'Basic secret' })).status, 401)
+})
+
+test('/auth/check is never cached: no-store, no ETag, and If-None-Match gives no 304', async () => {
+  const { call } = spiedApp()
+  for (const auth of ['Bearer secret', 'Bearer nope']) {
+    const res = await call({ Authorization: auth, 'If-None-Match': '*' })
+    assert.notEqual(res.status, 304)
+    assert.equal(res.headers.get('Cache-Control'), 'no-store')
+    assert.equal(res.headers.get('ETag'), null)
+  }
+})
+
+test('/auth/check never reads or writes KV', async () => {
+  const { call, kvCalls } = spiedApp()
+  await call({ Authorization: 'Bearer secret' })
+  await call({ Authorization: 'Bearer nope' })
+  await call()
+  assert.deepEqual(kvCalls, [])
+})
+
+test('/auth/check is GET only, and CORS lets a browser send Authorization to it', async () => {
+  const { call } = spiedApp()
+  assert.equal((await call({ Authorization: 'Bearer secret' }, 'POST')).status, 404)
+  const pre = await call({ Origin: 'https://example.com', 'Access-Control-Request-Method': 'GET', 'Access-Control-Request-Headers': 'authorization' }, 'OPTIONS')
+  assert.equal(pre.status, 204)
+  assert.match(pre.headers.get('Access-Control-Allow-Headers') ?? '', /Authorization/)
+  assert.match(pre.headers.get('Access-Control-Allow-Methods') ?? '', /GET/)
+  const res = await call({ Authorization: 'Bearer secret' })
+  assert.equal(res.headers.get('Access-Control-Allow-Origin'), '*')
+})
+
+test('/auth/check is documented in the OpenAPI spec with the bearer scheme', async () => {
+  const spec = await (await app().call('/openapi.json')).json() as { paths: Record<string, { get?: { security?: unknown; responses: Record<string, unknown> } }> }
+  const op = spec.paths['/auth/check']?.get
+  assert.ok(op)
+  assert.deepEqual(op.security, [{ bearerAuth: [] }])
+  assert.deepEqual(Object.keys(op.responses).sort(), ['204', '401'])
+})

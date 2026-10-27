@@ -13,7 +13,8 @@ export const OPENAPI_SPEC = {
       'REST API to manage career portfolio data (work experience, projects, skills, education, certifications and soft-skills).\n\n' +
       '### Authentication\n' +
       'Write operations (`POST`, `PUT`, `PATCH`, `DELETE`) require a Bearer token in the `Authorization` header:\n' +
-      '```\nAuthorization: Bearer <your-api-secret>\n```\n\n' +
+      '```\nAuthorization: Bearer <your-api-secret>\n```\n' +
+      '`GET /auth/check` verifies a token without touching any data: `204` when it is valid, `401` otherwise.\n\n' +
       '### i18n\n' +
       'All localizable text fields use a **`LocalizedString`** map:\n' +
       '```json\n{ "en": "Hello", "es": "Hola" }\n```\n' +
@@ -44,6 +45,7 @@ export const OPENAPI_SPEC = {
   ],
   tags: [
     { name: 'meta',           description: 'API information' },
+    { name: 'auth',           description: 'Token verification' },
     { name: 'languages',      description: 'Supported content languages' },
     { name: 'personal',       description: 'Personal / contact information' },
     { name: 'jobs',           description: 'Work experience' },
@@ -255,6 +257,23 @@ export const OPENAPI_SPEC = {
             content: { 'application/json': { schema: { type: 'object' } } },
           },
           '304': { description: 'Not modified' },
+        },
+      },
+    },
+
+    // ── Auth check ───────────────────────────────────────────────────────────
+    '/auth/check': {
+      get: {
+        tags: ['auth'],
+        summary: 'Verify a Bearer token',
+        description:
+          'Answers `204` with no body when the Bearer token is valid and `401` when it is missing or wrong. ' +
+          'Reads and writes no data, and is never cached (`Cache-Control: no-store`, no `ETag`).',
+        operationId: 'checkAuth',
+        security: [{ bearerAuth: [] }],
+        responses: {
+          '204': { description: 'Token is valid', headers: { 'Cache-Control': { schema: { type: 'string', example: 'no-store' } } } },
+          '401': { $ref: '#/components/responses/Unauthorized' },
         },
       },
     },

@@ -119,9 +119,19 @@ addRoute('GET', '/', async (_req, _env) => {
       '/soft-skills',
     ],
     write_methods: ['POST', 'PUT', 'PATCH', 'DELETE'],
-    auth: 'Bearer token required for write operations',
+    auth: 'Bearer token required for write operations; GET /auth/check verifies a token (204 or 401)',
   })
 })
+
+// ── Auth check ────────────────────────────────────────────────────────────────
+//
+// Lets a client (Folio) find out whether its token is valid without writing anything: 204 when it
+// is, 401 (from the dispatcher, before this handler runs) when it is missing or wrong. No KV
+// access, no body, and never cached: it does not go through cachedJson, so no ETag and no 304.
+
+addRoute('GET', '/auth/check', async () => {
+  return new Response(null, { status: 204, headers: { 'Cache-Control': 'no-store' } })
+}, true)
 
 // ── All entities in one request ───────────────────────────────────────────────
 //
