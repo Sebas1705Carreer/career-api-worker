@@ -173,6 +173,17 @@ export const OPENAPI_SPEC = {
           tags:    { type: 'array', items: { type: 'string' }, example: ['Kotlin', 'KMP', 'Firebase'] },
           github:  { type: 'string', format: 'uri', nullable: true },
           demo:    { type: 'string', format: 'uri', nullable: true },
+          image_url: {
+            type: 'string', format: 'uri', nullable: true, maxLength: 2048, pattern: '^https://',
+            description: 'Optional cover image: absolute https URL (empty or null = no image)',
+            example: 'https://sebas1705carreer.github.io/carreerV2/projects/youknowme-app.webp',
+          },
+          image_alt: {
+            allOf: [{ $ref: '#/components/schemas/LocalizedString' }],
+            nullable: true,
+            description: 'Alt text for `image_url`; clients fall back to the project name',
+            example: { en: 'YouKnowMe home screen', es: 'Pantalla de inicio de YouKnowMe' },
+          },
         },
       },
       // ── Skill ─────────────────────────────────────────────────────────────

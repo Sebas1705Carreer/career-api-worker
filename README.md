@@ -88,7 +88,7 @@ Writes are checked before they are stored. A rejected one answers `400`:
 | Required fields are present: projects `name` + `context`, jobs `company`, skills `name` + `category` + `level`, education `school`, certifications `name` + `issuer`, soft skills `name`, personal `name` + `email` | `POST`, `PUT /personal` |
 | Localized fields are `{ "en": "text" }` maps with valid language codes; `achievements` is a map of string lists | every write |
 | `context` is `work`, `academic` or `personal`; `level` is an integer from 1 to 4 | every write |
-| Dates are `YYYY-MM` (or empty / `null`); links are `http(s)` URLs (or empty / `null`); `email` looks like one | every write |
+| Dates are `YYYY-MM` (or empty / `null`); links are `http(s)` URLs (or empty / `null`); a project `image_url` is an absolute `https` URL of at most 2048 characters (or empty / `null`) and `image_alt` a localized map (or `null`); `email` looks like one | every write |
 | The default language is one of the supported codes | `/languages` |
 | The body is valid JSON and at most 256 KB (`413` above that) | every write |
 
@@ -251,9 +251,15 @@ All localizable fields are `LocalizedString` maps: `{ "en": "string", "es": "str
   "desc": { "en": "string", "es": "string" },
   "tags": ["string"],
   "github": "string | null",
-  "demo": "string | null"
+  "demo": "string | null",
+  "image_url": "string | null (optional; absolute https URL)",
+  "image_alt": { "en": "string", "es": "string" }
 }
 ```
+
+`image_url` and `image_alt` are optional (`image_alt` may also be `null`). Project images are
+hosted by the portfolio at `https://sebas1705carreer.github.io/carreerV2/projects/<project-id>.webp`;
+clients use the project name as alt text when `image_alt` is missing.
 
 ### Education
 

@@ -34,6 +34,19 @@ const url: Check = (v) =>
     ? null
     : 'must be an http(s) URL, empty or null'
 
+/** Longest accepted image URL: plenty for a CDN path, small enough to keep junk out of KV */
+export const MAX_IMAGE_URL_LENGTH = 2048
+
+/**
+ * Absolute https URL (images are loaded by https pages, so plain http would be blocked as mixed
+ * content), or empty / null for "no image".
+ */
+const httpsUrl: Check = (v) => {
+  if (v === null || v === '') return null
+  if (typeof v !== 'string' || !/^https:\/\/[^\s/]+\S*$/.test(v)) return 'must be an absolute https URL, empty or null'
+  return v.length <= MAX_IMAGE_URL_LENGTH ? null : `must be at most ${MAX_IMAGE_URL_LENGTH} characters`
+}
+
 const email: Check = (v) =>
   typeof v === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? null : 'must be an email address'
 
@@ -54,6 +67,9 @@ const localized: Check = (v) => {
   }
   return null
 }
+
+/** A localized value, or null for "not set" */
+const localizedOrNull: Check = (v) => (v === null ? null : localized(v))
 
 /** { langCode: [text, …] } */
 const localizedList: Check = (v) => {
@@ -101,6 +117,7 @@ const SPECS: Record<Exclude<EntityKey, 'languages'>, Spec> = {
     fields: {
       name: nonEmpty, context: oneOf('work', 'academic', 'personal'),
       desc: localized, long_desc: localized, tags: stringList, github: url, demo: url,
+      image_url: httpsUrl, image_alt: localizedOrNull,
     },
   },
   skills: {
