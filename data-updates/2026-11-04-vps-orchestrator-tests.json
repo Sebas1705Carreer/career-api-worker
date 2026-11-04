@@ -1,0 +1,28 @@
+{
+  "projects": [
+    {
+      "id": "vpsorchestrator",
+      "name": "Local VPS Orchestrator",
+      "context": "academic",
+      "desc": {
+        "en": "Self-hosted REST API to run a VPS: RBAC, AES-256-GCM encrypted secrets, 27 route modules and 1,074 Jest tests.",
+        "es": "API REST autoalojada para gestionar un VPS: RBAC, secretos cifrados con AES-256-GCM, 27 módulos de rutas y 1.074 tests con Jest."
+      },
+      "tags": [
+        "Node.js",
+        "Express",
+        "TypeScript",
+        "REST API",
+        "Docker",
+        "RBAC",
+        "Jest"
+      ],
+      "github": "https://github.com/Sebas1705/VPSLocalOrchestrator",
+      "demo": null,
+      "long_desc": {
+        "en": "Built for the AI Development Master's to manage a VPS through one authenticated API. It is written in Node.js + Express 5 + TypeScript (v1.3.0) with 27 route modules, one per domain: CPU, memory and disk metrics, Docker containers, systemd services, database queries and migrations, and scheduled tasks. Security is built in: role-based access control, secrets encrypted at rest with AES-256-GCM and a random IV per value, audit logging, Prometheus metrics and distributed tracing. 1,074 tests in 37 suites (Jest + Supertest) run in CI with coverage, and it deploys with Docker Compose or as a systemd service bound to localhost behind a reverse proxy.",
+        "es": "Desarrollada para el Máster en Desarrollo con IA para gestionar un VPS a través de una única API autenticada. Está escrita en Node.js + Express 5 + TypeScript (v1.3.0) con 27 módulos de rutas, uno por dominio: métricas de CPU, memoria y disco, contenedores Docker, servicios systemd, consultas y migraciones de bases de datos y tareas programadas. La seguridad viene de serie: control de acceso por roles, secretos cifrados en reposo con AES-256-GCM y un IV aleatorio por valor, registro de auditoría, métricas de Prometheus y trazabilidad distribuida. 1.074 tests en 37 suites (Jest + Supertest) se ejecutan en CI con cobertura, y se despliega con Docker Compose o como servicio systemd escuchando solo en localhost tras un proxy inverso."
+      }
+    }
+  ]
+}
