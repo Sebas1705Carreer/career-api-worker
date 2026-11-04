@@ -1,0 +1,104 @@
+{
+  "projects": [
+    {
+      "id": "owlsplit",
+      "name": "Owlsplit",
+      "context": "personal",
+      "desc": {
+        "en": "Offline-first shared-expenses app for Android and iOS (KMP) that settles debts in the fewest payments; live on Google Play.",
+        "es": "App de gastos compartidos para Android e iOS (KMP) que funciona sin conexión y salda las deudas con el menor número de pagos; disponible en Google Play."
+      },
+      "tags": [
+        "Kotlin Multiplatform",
+        "Compose Multiplatform",
+        "SQLDelight",
+        "Koin",
+        "Firebase",
+        "Clean Architecture",
+        "Android",
+        "iOS"
+      ],
+      "github": "https://github.com/Sebas1705/Owlsplit",
+      "demo": "https://play.google.com/store/apps/details?id=es.sebas1705.owlsplit",
+      "long_desc": {
+        "en": "Shared costs on trips, in flats or at dinners raise the same questions: who paid what, who owes whom and how to settle up with the fewest payments. Owlsplit answers them in a Kotlin Multiplatform app for Android and iOS that works offline, with a local database and a sync engine (outbox, listeners, conflict and deletion handling) over Firebase Auth and Firestore. It is built with Compose Multiplatform, SQLDelight, Koin and Ktor on the Templetry kmp/modular-features template, with a documented domain model for money, splitting, currencies and debt simplification. Unit-test line coverage is 79.6% and CI fails if it drops below 75%. It is live on Google Play (version 1.1.1, updated on 4 November 2026), and the Android APK also ships from its own download page, with a Spanish and English UI and MIT-licensed code. Version 1.1 added a group admin who can hand the role over and can merge two people who are really the same one, and 1.1.1 adds a \"Sync now\" button and problem reports from inside the app.",
+        "es": "Los gastos compartidos de viajes, pisos o cenas plantean siempre las mismas preguntas: quién pagó qué, quién debe a quién y cómo saldar cuentas con el menor número de pagos. Owlsplit las responde con una app Kotlin Multiplatform para Android e iOS que funciona sin conexión, con base de datos local y un motor de sincronización (outbox, listeners, gestión de conflictos y borrados) sobre Firebase Auth y Firestore. Está construida con Compose Multiplatform, SQLDelight, Koin y Ktor sobre la plantilla kmp/modular-features de Templetry, con un modelo de dominio documentado para el dinero, el reparto, las divisas y la simplificación de deudas. La cobertura de líneas de los tests unitarios es del 79,6% y la CI falla si baja del 75%. Está disponible en Google Play (versión 1.1.1, actualizada el 4 de noviembre de 2026) y el APK de Android también se distribuye desde su propia página de descarga, con la interfaz en español e inglés y el código bajo licencia MIT. La versión 1.1 añadió un administrador de grupo que puede ceder el cargo y fusionar a dos personas que en realidad son la misma, y la 1.1.1 añade un botón «Sincronizar ahora» y los informes de problemas desde la propia app."
+      }
+    },
+    {
+      "id": "haltera",
+      "name": "Haltera",
+      "context": "personal",
+      "desc": {
+        "en": "Free gym logbook for Android and iOS (KMP): 801 exercises, 705 foods, equipment-aware logging and double progression.",
+        "es": "Diario de gimnasio gratuito para Android e iOS (KMP): 801 ejercicios, 705 alimentos, registro según el material y doble progresión."
+      },
+      "tags": [
+        "Kotlin Multiplatform",
+        "Compose Multiplatform",
+        "SQLDelight",
+        "Koin",
+        "Firebase",
+        "Clean Architecture",
+        "Android",
+        "iOS"
+      ],
+      "github": "https://github.com/Sebas1705/Haltera",
+      "demo": "https://play.google.com/store/apps/details?id=es.sebas1705.haltera",
+      "long_desc": {
+        "en": "Haltera is a free gym logbook built around one rule: it follows your real training and never forces a schedule, so any session can be logged on any date and stays editable. Built with Kotlin Multiplatform and Compose Multiplatform for Android and iOS, it offers routines of any cycle length, equipment-aware load logging, automatic rest timers, double progression, a catalogue of 801 exercises with fuzzy Spanish/English search and a nutrition log of 705 foods with barcode scanning. Your data stays yours: it works offline, exports to CSV and JSON, imports history from Hevy, Strong or FitNotes, and the cloud backup is opt-in. CI runs detekt, unit tests, SQLDelight migration checks, Firestore rules tests against the emulator and an iOS simulator build. Formerly called Ironlog, it reached its first stable release (v1.0.0) on 3 November 2026, is available on Google Play and is MIT-licensed.",
+        "es": "Haltera es un diario de gimnasio gratuito con una regla: sigue tu entrenamiento real y nunca impone un calendario, así que cualquier sesión se puede registrar en cualquier fecha y sigue siendo editable. Hecha con Kotlin Multiplatform y Compose Multiplatform para Android e iOS, ofrece rutinas de cualquier duración de ciclo, registro de cargas según el material, temporizadores de descanso automáticos, doble progresión, un catálogo de 801 ejercicios con búsqueda difusa en español e inglés y un registro de nutrición con 705 alimentos y escáner de códigos de barras. Tus datos son tuyos: funciona sin conexión, exporta a CSV y JSON, importa el historial desde Hevy, Strong o FitNotes y la copia en la nube es opcional. La CI ejecuta detekt, tests unitarios, comprobación de migraciones de SQLDelight, tests de las reglas de Firestore contra el emulador y una compilación para el simulador de iOS. Antes se llamaba Ironlog; alcanzó su primera versión estable (v1.0.0) el 3 de noviembre de 2026, está disponible en Google Play y su código es MIT."
+      }
+    },
+    {
+      "id": "impostor",
+      "name": "Omni-Impostor",
+      "context": "personal",
+      "desc": {
+        "en": "Offline pass-the-phone party game on Google Play: 44 word categories in Spanish and English, unmask the impostor in time.",
+        "es": "Juego de fiesta sin conexión en Google Play: 44 categorías de palabras en español e inglés para desenmascarar al impostor a tiempo."
+      },
+      "tags": [
+        "Kotlin",
+        "Jetpack Compose",
+        "Android",
+        "Firebase",
+        "Hilt",
+        "Clean Architecture",
+        "Material 3",
+        "CI/CD"
+      ],
+      "github": "https://github.com/Sebas1705/Omni-Impostor",
+      "demo": "https://play.google.com/store/apps/details?id=es.sebas1705.impostorandroidgame",
+      "long_desc": {
+        "en": "A party game for groups: everyone secretly gets a word except one or more impostors, who get a different one, and the group debates and votes to unmask them before time runs out. I built and published it on Google Play with pass-the-phone play, 44 word categories in Spanish and English, an animated 3D reveal card, a local ranking with wins and streaks, and Google Sign-In with Firebase Auth. Under the hood it is a production-grade template: multi-module Clean Architecture with Hilt, Material 3 with three contrast levels and a WCAG AA contrast guard, Gradle convention plugins, Detekt, LeakCanary and Chucker. GitHub Actions attaches the AAB to each release (latest v1.4.1, on Google Play since 1 November 2026) and can upload tagged releases to Google Play; version 1.4 added in-app account deletion and fixed email verification, and the online mode was dropped to focus on the offline experience.",
+        "es": "Un juego de fiesta para grupos: cada jugador recibe en secreto una palabra salvo uno o más impostores, que reciben otra distinta, y el grupo debate y vota para desenmascararlos antes de que se acabe el tiempo. Lo desarrollé y publiqué en Google Play: se juega pasándose el móvil, con 44 categorías de palabras en español e inglés, una carta de revelación 3D animada, un ranking local con victorias y rachas, e inicio de sesión con Google y Firebase Auth. Por dentro es una plantilla de nivel producción: Clean Architecture multimódulo con Hilt, Material 3 con tres niveles de contraste y una comprobación de contraste WCAG AA, convention plugins de Gradle, Detekt, LeakCanary y Chucker. GitHub Actions adjunta el AAB a cada release (la última, v1.4.1, en Google Play desde el 1 de noviembre de 2026) y puede subir a Google Play las versiones etiquetadas; la 1.4 añadió el borrado de cuenta desde la app y arregló la verificación del correo, y el modo online se retiró para centrarse en la experiencia sin conexión."
+      }
+    },
+    {
+      "id": "epdm",
+      "name": "EPDM Music Portal",
+      "context": "work",
+      "desc": {
+        "en": "Native Android app for the AGEDI Music Portal, published on Google Play: protected music content, playback and user rights.",
+        "es": "App Android nativa del Portal de la Música de AGEDI, publicada en Google Play: contenido musical protegido, reproducción y derechos."
+      },
+      "tags": [
+        "Kotlin",
+        "Jetpack Compose",
+        "Android",
+        "Firebase",
+        "C#",
+        ".NET",
+        "SQL Server",
+        "NDA"
+      ],
+      "github": null,
+      "demo": "https://play.google.com/store/apps/details?id=es.solusoft.epdm",
+      "long_desc": {
+        "en": "Native Android app for the AGEDI Music Portal, a Solusoft client project. Built with Kotlin and Jetpack Compose, it manages protected music content, playback and user rights. The backend runs on C# / .NET and SQL Server, with Firebase for real-time features. The app is published on Google Play (currently version 1.0.3, last updated in April 2026).",
+        "es": "App Android nativa para el Portal de la Música de AGEDI, un proyecto de cliente de Solusoft. Desarrollada con Kotlin y Jetpack Compose, gestiona contenido musical protegido, la reproducción y los derechos de los usuarios. El backend funciona con C# / .NET y SQL Server, con Firebase para las funcionalidades en tiempo real. La app está publicada en Google Play (actualmente en la versión 1.0.3, actualizada por última vez en abril de 2026)."
+      }
+    }
+  ]
+}
