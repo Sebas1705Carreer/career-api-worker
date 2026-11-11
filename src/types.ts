@@ -5,6 +5,9 @@ export interface Env {
   CAREER_KV: KVNamespace
   API_SECRET: string
   ALLOWED_ORIGIN: string
+  /** Rate limiting bindings (wrangler.toml). Optional so tests and bare `wrangler dev` runs work without them. */
+  WRITE_LIMITER?: RateLimit
+  AUTH_FAIL_LIMITER?: RateLimit
 }
 
 export type EntityKey =

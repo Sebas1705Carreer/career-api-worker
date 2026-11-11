@@ -15,12 +15,23 @@ const secret = process.env.API_SECRET
 if (!file) throw new Error('Usage: node data-updates/apply.mjs <file.json> [--dry-run]')
 if (!secret && !dryRun) throw new Error('API_SECRET is not set')
 
+/** fetch that waits and retries when the API answers 429 (rate limit), up to 3 times. */
+async function send(url, init) {
+  for (let attempt = 0; ; attempt++) {
+    const res = await fetch(url, init)
+    if (res.status !== 429 || attempt === 3) return res
+    const wait = Math.min(Number(res.headers.get('Retry-After')) || 60, 70)
+    console.log(`429 rate limited, waiting ${wait}s`)
+    await new Promise((r) => setTimeout(r, wait * 1000))
+  }
+}
+
 const update = JSON.parse(readFileSync(file, 'utf8'))
 for (const [entity, items] of Object.entries(update)) {
   // Singular entities (personal, languages) are a single object: replaced whole
   if (!Array.isArray(items)) {
     if (dryRun) { console.log(`[dry-run] PUT ${API}/${entity}`); continue }
-    const res = await fetch(`${API}/${entity}`, {
+    const res = await send(`${API}/${entity}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${secret}` },
       body: JSON.stringify(items),
@@ -38,7 +49,7 @@ for (const [entity, items] of Object.entries(update)) {
       console.log(`[dry-run] ${method} ${url}`)
       continue
     }
-    const res = await fetch(url, {
+    const res = await send(url, {
       method,
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${secret}` },
       body: JSON.stringify(item),

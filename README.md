@@ -25,7 +25,24 @@ Write operations require an `Authorization` header:
 Authorization: Bearer <API_SECRET>
 ```
 
-Unauthenticated write requests return `401 Unauthorized`.
+Unauthenticated write requests return `401 Unauthorized`. The token is checked before the request body is read.
+
+### Rate limiting
+
+Every route that needs a token (the writes and `GET /auth/check`) is limited per client IP with the [Workers Rate Limiting binding](https://developers.cloudflare.com/workers/runtime-apis/bindings/rate-limit/), declared in `wrangler.toml` (no dashboard setup):
+
+| Binding | Counts | Limit |
+|---|---|---|
+| `WRITE_LIMITER` | every request to a protected route, before the token is checked | 120 per minute |
+| `AUTH_FAIL_LIMITER` | requests with a missing or wrong token | 10 per minute |
+
+Over a limit the API answers `429 Too Many Requests` with `Retry-After: 60`. Public `GET`s are never limited. Because the generic limiter runs before the token check, guessing the token is bounded to about 120 tries per minute per IP and location even when a guess is right.
+
+Honest limits: the binding counts per Cloudflare location and is eventually consistent, so the numbers are approximate, and an attacker using many IPs or locations gets more than the nominal rate. It is a brake on noisy clients, not a guarantee; the real protection is a long random `API_SECRET`. If a binding is missing (tests, a bare `wrangler dev`) requests are not limited, and an error from the binding never blocks a request. `data-updates/apply.mjs` waits and retries on a 429.
+
+### Security headers
+
+Every response (including errors, `304` and CORS preflights) carries `X-Content-Type-Options: nosniff`, `Referrer-Policy: no-referrer`, `Strict-Transport-Security: max-age=31536000`, `X-Frame-Options: DENY`, `Cross-Origin-Resource-Policy: cross-origin` (CORS is open on purpose) and `Content-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'`. The `/docs` page gets its own CSP that allows only what Swagger UI needs: its two files from `unpkg.com/swagger-ui-dist@<exact version>/`, one inline script with a per-request nonce, and same-origin requests. Those two files are version-pinned and carry Subresource Integrity hashes (see `src/security.ts` for how to recompute them when upgrading).
 
 ---
 
@@ -73,6 +90,8 @@ Returns `{ languages, personal, jobs, projects, skills, education, certification
 ### Caching
 
 Every public `GET` carries an `ETag` (a hash of the body) and `Cache-Control: public, max-age=30, stale-while-revalidate=120`. A client that sends the tag back as `If-None-Match` gets an empty `304` when nothing changed. The window is short on purpose: an edit in Folio shows up on the portfolio within about a minute. Writes, errors and 404s are `Cache-Control: no-store`.
+
+The Worker also keeps each successful public read in the Cloudflare edge cache (Cache API) for the same 30 seconds, so a repeated `GET /all` costs no KV reads (it is 8 reads otherwise). The cache key is the **path only**: query strings are ignored, so `/all?x=1` and `/all?x=2` hit the same entry instead of bypassing or filling the cache. A write purges the entries it changed (that path, the list and `/all`) in the location that handled it; other locations may serve their copy for up to 30 seconds. The Cache API does nothing on `*.workers.dev`, only on the custom domain.
 
 ### Validation
 
@@ -182,6 +201,7 @@ curl -X DELETE https://api.sebas1705.dev/projects/old-project \
 | `304` | Not modified (the `If-None-Match` tag is current) |
 | `400` | Invalid JSON or failed validation (see `details`) |
 | `401` | Unauthorized (missing or invalid Bearer token) |
+| `429` | Too many requests (rate limit, see Authentication) |
 | `404` | Entity or item not found |
 | `409` | Conflict (duplicate `id` on POST) |
 | `413` | Body larger than 256 KB |
@@ -317,13 +337,18 @@ src/
 ├── router.ts       # Route definitions and dispatcher
 ├── auth.ts         # Bearer token authentication
 ├── cors.ts         # CORS headers and preflight handling
-├── cache.ts        # ETag + Cache-Control for the public reads (304 handling)
+├── cache.ts        # ETag + Cache-Control for the public reads (304 handling) and the edge cache
+├── security.ts     # Security headers, docs CSP, pinned Swagger UI version + SRI hashes
+├── ratelimit.ts    # Per-IP rate limiting (Workers Rate Limiting binding)
 ├── validate.ts     # Write validation (types, required fields, languages)
 ├── kv.ts           # KV storage helpers (get, set, create, update, delete)
 ├── types.ts        # Env interface and entity type definitions
 ├── seed-data.ts    # Initial seed data for all entities
 └── seed.ts         # Script to generate wrangler KV put commands
 seed-kv.mjs         # Node.js script to seed KV namespace directly
+scripts/            # backup-export.mjs: exports GET /all to a JSON file
+data-updates/       # JSON data updates + apply.mjs (also used to restore a backup)
+.github/workflows/  # ci.yml, deploy.yml, backup.yml (weekly export of the live data)
 wrangler.toml       # Cloudflare Worker configuration
 ```
 
@@ -351,7 +376,7 @@ npm install --ignore-scripts
 npm test
 ```
 
-Runs the validation rules and the whole API (caching, `/all`, writes) against an in-memory KV. Set `LIVE_DATA_DIR` to a folder with one `<entity>.json` per entity (copies of the `GET` responses) to also check that the rules accept the data the API holds.
+Runs the validation rules and the whole API (caching, `/all`, writes, security headers, rate limiting, and a 401-without-token check for every write route) against an in-memory KV. Set `LIVE_DATA_DIR` to a folder with one `<entity>.json` per entity (copies of the `GET` responses) to also check that the rules accept the data the API holds.
 
 ### Run locally
 
@@ -400,12 +425,29 @@ echo "<your-secret-token>" | npx wrangler secret put API_SECRET
 | `CAREER_KV` | KV Namespace | Persistent storage for all entity data |
 | `API_SECRET` | Secret | Bearer token required for write operations |
 | `ALLOWED_ORIGIN` | Var | CORS allowed origin (default: `*`) |
+| `WRITE_LIMITER`, `AUTH_FAIL_LIMITER` | Rate limiting | Per-IP limits, declared in `wrangler.toml` (optional at runtime) |
 
 ---
 
 ## CORS
 
 All responses include `Access-Control-Allow-Origin: *` (configurable via `ALLOWED_ORIGIN`). `OPTIONS` preflight requests return `204`.
+
+---
+
+## Backup and restore
+
+`.github/workflows/backup.yml` runs every Monday (and on demand from the Actions tab) and exports `GET /all` to a JSON artifact kept for **30 days**. It needs no secrets because reads are public, and it refuses to upload a backup that looks empty. This is a cheap copy of the KV data, not a point-in-time snapshot of KV itself, and it only covers the last 30 days of weekly copies.
+
+Take one by hand: `node scripts/backup-export.mjs backup.json`.
+
+Restore:
+
+1. Download the artifact (`career-api-backup-<run id>`, file `career-all.json`) from the workflow run, or run the script above.
+2. Preview what would happen: `node data-updates/apply.mjs career-all.json --dry-run`.
+3. Apply it: `API_SECRET=<token> node data-updates/apply.mjs career-all.json` (with Doppler: `doppler run -p carreer -c <config> -- node data-updates/apply.mjs career-all.json`).
+
+`apply.mjs` upserts by id (`PUT` when the item exists, `POST` when it does not; `languages` and `personal` are replaced whole), so it re-creates anything deleted and overwrites anything changed, but it does **not** delete items that were added after the backup. Remove those by hand with `DELETE` if you want an exact rollback. Writes go through the validation and rate limit like any other.
 
 ---
 
