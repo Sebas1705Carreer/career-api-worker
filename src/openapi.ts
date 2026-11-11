@@ -2,8 +2,10 @@
  * OpenAPI 3.0 specification for the Career API.
  *
  * Served at GET /openapi.json
- * Interactive UI served at GET /docs (Swagger UI via CDN)
+ * Interactive UI served at GET /docs (Swagger UI from unpkg, version-pinned and SRI-checked; see security.ts)
  */
+import { SWAGGER_UI } from './security'
+
 export const OPENAPI_SPEC = {
   openapi: '3.0.3',
   info: {
@@ -564,14 +566,17 @@ export const OPENAPI_SPEC = {
 }
 
 /** HTML for the Swagger UI page — loads assets from the official CDN. */
-export function swaggerUiHtml(specUrl: string): string {
+export function swaggerUiHtml(specUrl: string, nonce: string): string {
+  const base = `https://unpkg.com/swagger-ui-dist@${SWAGGER_UI.version}`
+  // JSON.stringify gives a valid JS string literal; escaping `<` keeps it from closing the script tag
+  const spec = JSON.stringify(specUrl).replace(/</g, '\u003c')
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Career API — Swagger UI</title>
-  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5/swagger-ui.css" />
+  <link rel="stylesheet" href="${base}/swagger-ui.css" integrity="${SWAGGER_UI.cssIntegrity}" crossorigin="anonymous" />
   <style>
     body { margin: 0; background: #fafafa; }
     .swagger-ui .topbar { background: #1a1a2e; }
@@ -580,19 +585,15 @@ export function swaggerUiHtml(specUrl: string): string {
 </head>
 <body>
   <div id="swagger-ui"></div>
-  <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
-  <script>
+  <script src="${base}/swagger-ui-bundle.js" integrity="${SWAGGER_UI.jsIntegrity}" crossorigin="anonymous"></script>
+  <script nonce="${nonce}">
     SwaggerUIBundle({
-      url: '${specUrl}',
+      url: ${spec},
       dom_id: '#swagger-ui',
       deepLinking: true,
-      presets: [SwaggerUIBundle.presets.apis, SwaggerUIBundle.SwaggerUIStandalonePreset],
+      presets: [SwaggerUIBundle.presets.apis],
       layout: 'BaseLayout',
       tryItOutEnabled: true,
-      requestInterceptor: (req) => {
-        // Preserve Authorization header set manually by the user
-        return req;
-      },
     });
   </script>
 </body>

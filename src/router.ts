@@ -4,12 +4,15 @@ import { isAuthenticated, unauthorized } from './auth'
 import { kvGet, kvSet, kvGetById, kvCreate, kvUpdate, kvDelete } from './kv'
 import { OPENAPI_SPEC, swaggerUiHtml } from './openapi'
 import { cachedJson } from './cache'
+import { allowAuthFailure, allowProtectedRequest, tooManyRequests } from './ratelimit'
+import { docsCsp } from './security'
 import { validateEntity, validateLanguages } from './validate'
 
 type Handler = (req: Request, env: Env, params: Record<string, string>) => Promise<Response>
 
 interface Route {
   method: string
+  path: string
   pattern: RegExp
   paramNames: string[]
   handler: Handler
@@ -33,7 +36,7 @@ function addRoute(
       }) +
       '$',
   )
-  routes.push({ method, pattern, paramNames, handler, requiresAuth })
+  routes.push({ method, path, pattern, paramNames, handler, requiresAuth })
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -92,10 +95,11 @@ addRoute('GET', '/openapi.json', async (req) => {
   })
 })
 
-addRoute('GET', '/docs', async (req) => {
-  const origin = new URL(req.url).origin
-  return new Response(swaggerUiHtml(`${origin}/openapi.json`), {
-    headers: { 'Content-Type': 'text/html; charset=utf-8' },
+addRoute('GET', '/docs', async () => {
+  // A relative spec URL always means this same origin, whatever host the Worker is reached on
+  const nonce = btoa(String.fromCharCode(...crypto.getRandomValues(new Uint8Array(16))))
+  return new Response(swaggerUiHtml('/openapi.json', nonce), {
+    headers: { 'Content-Type': 'text/html; charset=utf-8', 'Content-Security-Policy': docsCsp(nonce) },
   })
 })
 
@@ -292,6 +296,11 @@ for (const entity of ARRAY_ENTITIES) {
   }, true)
 }
 
+/** Method, path template (`:id` for params) and auth flag of every route. Used by the tests to check them all. */
+export function listRoutes(): { method: string; path: string; requiresAuth: boolean }[] {
+  return routes.map(({ method, path, requiresAuth }) => ({ method, path, requiresAuth }))
+}
+
 // ── Dispatcher ────────────────────────────────────────────────────────────────
 
 export async function dispatch(req: Request, env: Env): Promise<Response> {
@@ -309,8 +318,14 @@ export async function dispatch(req: Request, env: Env): Promise<Response> {
       params[name] = match[i + 1]
     })
 
-    if (route.requiresAuth && !isAuthenticated(req, env)) {
-      return unauthorized()
+    if (route.requiresAuth) {
+      // Order matters: throttle first (so a correct guess made over the limit is still refused),
+      // then the token, and only then the body, which the handlers read themselves.
+      if (!(await allowProtectedRequest(req, env))) return tooManyRequests()
+      if (!isAuthenticated(req, env)) {
+        if (!(await allowAuthFailure(req, env))) return tooManyRequests()
+        return unauthorized()
+      }
     }
 
     try {

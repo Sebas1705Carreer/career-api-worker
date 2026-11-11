@@ -21,3 +21,19 @@ ALLOWED_ORIGIN = "*"
 [[routes]]
 pattern = "api.sebas1705.dev"
 custom_domain = true
+
+# Rate limiting (Workers Rate Limiting binding; no dashboard setup needed, `namespace_id` is just
+# a number we pick, unique within the account). Both are keyed by client IP in src/ratelimit.ts.
+# Counts are per Cloudflare location and approximate; `period` can only be 10 or 60 seconds.
+# Every request to a route that needs a token (writes and /auth/check): 120 per minute. Generous
+# enough for a bulk data update script, far below what token guessing needs.
+[[ratelimits]]
+name = "WRITE_LIMITER"
+namespace_id = "1001"
+simple = { limit = 120, period = 60 }
+
+# Requests with a missing or wrong token: 10 per minute.
+[[ratelimits]]
+name = "AUTH_FAIL_LIMITER"
+namespace_id = "1002"
+simple = { limit = 10, period = 60 }
